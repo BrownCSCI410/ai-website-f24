@@ -1,0 +1,275 @@
+@font-face {
+  font-family: 'Minecraft';
+  src: 
+       url('fonts/MinecraftTen-VGORe.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Minecraftia';
+  src: 
+       url('fonts/Minecraftia-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1 {
+  font-family: 'Minecraft', sans-serif;
+}
+
+p, h2, h3 {
+  font-family: 'Minecraftia', monospace;
+}
+
+/* Home page */
+body {
+  cursor: url('images/pickaxe.png') 16 16, auto;
+  font-family: 'Minecraftia', monospace;
+  background-color: #01041A;
+  color: white;
+  background-image: url('images/grass-block-texture.jpg');
+  background-size: cover;
+  text-align: center;
+  /* font-size: larger; */
+}
+
+.home-banner {
+  background-image: url('pack.png.png');
+  background-size: cover;
+  padding: 100px 0;
+}
+
+.home-banner::before {
+  position: absolute;
+  /* adjust opacity (0.5) to make it lighter or darker */
+  /* background-color: rgba(0, 0, 0, 0.5);  */
+  z-index: 1; /* Ensure the overlay is above the background image */
+}
+
+.container.home-textbox {
+  position: relative;
+  z-index: 2; /* Ensures the text is on top of the overlay */
+  background-color: rgba(0, 0, 0, 0.75); 
+  color: white;
+  border-radius: 10px;
+  max-width: 50%;
+  z-index: 3;
+}
+
+.home-textbox {
+  border: 4px solid #3D3D3D; /* Dark grey border */
+  box-shadow: 0px 0px 10px #000; /* Darker shadow for depth */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
+}
+
+@media screen and (max-width: 768px) {
+  .container.home-textbox {
+    max-width: 100%;
+  }
+}
+
+/* General components */
+.container.text-center {
+  position: relative;
+  z-index: 2; /* Ensures the text is on top of the overlay */
+  background-color: rgba(0, 0, 0, 0.75); 
+  color: white;
+  border-radius: 10px;
+  z-index: 3;
+}
+
+.text-center {
+  border: 4px solid #3D3D3D; /* Dark grey border */
+  box-shadow: 0px 0px 10px #000; /* Darker shadow for depth */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for better readability */
+}
+
+.navbar {
+  background-image: url('images/wood-texture.webp');
+  background-size: cover;
+}
+
+/* Override Bootstrap navbar text color */
+.navbar .navbar-nav .nav-link {
+color: white;
+z-index: 3;
+}
+
+/* Footer */
+.footer-isha {
+font-size: 12px;
+margin-top: auto;
+border-top: 1px solid white; 
+}
+
+/* staff page */
+.staff-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  /* background-color: #3D3D3D; */
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 10px;
+  /* border-bottom: 4px solid #1A1A1A; */
+}
+
+.content-wrapper {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
+.staff-grid {
+  width: 50%;
+  overflow-y: auto;
+  background-color: #282828;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.staff-member {
+  background-color: #505050;
+  padding: 10px;
+  margin-bottom: 15px;
+  text-align: center;
+  border: 2px solid #3D3D3D;
+  box-shadow: 2px 2px 0 #1A1A1A;
+}
+
+.staff-member img {
+  width: 100px; 
+  height: auto;
+  display: block;
+  margin: 0 auto 10px auto;
+  align-items: center;
+}
+
+.staff-member h3 {
+  margin: 0;
+  font-size: 16px;
+  color: white;
+}
+
+.details {
+  width: 50%;
+  padding: 20px;
+  background-color: #3D3D3D;
+  color: white;
+  border-left: 4px solid #1A1A1A;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow-y: auto;
+}
+
+.details img {
+  width: 175px;
+  height: auto;
+  margin: 0 auto 20px auto; /* Center the image horizontally */
+  display: block;
+}
+
+/* Resources page book */
+.book-container {
+  width: 80%;
+  max-width: 800px;
+  background-color: rgb(100,68,44); /* Dark brown cover color */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.book-page {
+  background-color: rgb(251, 248, 237); /* Parchment-like background color */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
+  position: relative; /* Necessary for the folded corner */
+}
+
+.book-page:after {
+  position: absolute;
+  content: '';
+  right: 0;
+  top: 0;
+}
+
+.book-page:hover:after {
+  transition-duration: 1s;
+  border-bottom: 50px solid rgb(100,68,44);
+  border-right: 50px solid rgb(251, 248, 237);
+  border-radius: 20%;
+}
+
+.book-page h1 {
+  font-family: 'Minecraftia';
+  color: rgb(206,190,170);
+  text-align: center;
+}
+
+.book-page h2 {
+  font-size: 1.5em;
+  color: #3B2F2F; /* Darker brown for headings */
+}
+
+.book-page ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.book-page li {
+  margin-bottom: 10px;
+}
+
+a {
+  color: #cab9a4;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.book-page ul li:before {
+  content: "• "; /* Bullet point */
+  color: #3B2F2F; /* Same color as headings */
+}
+
+/* assignments */
+.assignments-container {
+  width: 90%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.assignments-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.assignments-table th, .assignments-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  color: white;
+}
+
+.assignments-table th {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Minecraftia';
+}
+
+.assignments-table tr:hover {
+  background-color: rgba(169, 169, 169, 0.27);
+}
