@@ -1,2 +1,2 @@
 Fall 2024 Course Website.
-URL: https://iponugoti.github.io/cs410-f24/
+URL: https://browncsci410.github.io/ai-website-f24/
