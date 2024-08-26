@@ -50,34 +50,9 @@
     <h1>Staff</h1>
 </div>
 
+
 <div class="content-wrapper">
     <div class="staff-grid">
-        <!-- Profs -->
-        <div class="staff-member" onclick="showDetails('Amy Greenwald', 'Professor', 'She/Her', 'Providence, RI', 'Amy bio', 'amy', 'images/steves/alex.webp')">
-            <img src="images/steves/alex.webp" alt="Amy Greenwald">
-            <h3>Amy Greenwald (Prof)</h3>
-        </div>
-        <div class="staff-member" onclick="showDetails('Eric Ewing', 'Professor', 'He/Him', 'Boston, MA', 'Eric bio', 'eric_ewing@brown.edu', 'images/steves/steve.webp')">
-            <img src="images/steves/steve.webp" alt="Eric Ewing">
-            <h3>Eric Ewing (Prof)</h3>
-        </div>
-        <!-- HTAs -->
-        <div class="staff-member" onclick="showDetails('Grant Landon', 'HTA', 'He/Him', '_, MA', 'grant bio', 'grant_landon@brown.edu', 'images/steves/alex.webp')">
-            <img src="images/steves/developer_steve.webp" alt="Amy Greenwald">
-            <h3>Grant Landon (HTA)</h3>
-        </div>
-        <div class="staff-member" onclick="showDetails('Isha Ponugoti', 'HTA', 'She/Her', 'Carmel, IN', 'isha bio', 'iponugot', 'images/items/isha.webp', 'images/headshots/isha.jpeg')">
-            <img src="images/steves/efe.webp" alt="Isha Ponugoti">
-            <h3>Isha Ponugoti (HTA)</h3>
-        </div>
-        <div class="staff-member" onclick="showDetails('Jennifer Chen', 'HTA', 'She/Her', '_, NJ', 'jen bio', 'jennifer_a_chen@brown.edu', 'images/items/steve.webp')">
-            <img src="images/steves/kai.webp" alt="Jennifer Chen">
-            <h3>Jennifer Chen (HTA)</h3>
-        </div>
-
-        <!-- UTA-STAs -->
-
-        <!-- UTAs -->
     </div>
     
     <div class="details">
@@ -106,27 +81,196 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
   
-  <!-- My external JavaScript File -->
+  <!-- JavaScript -->
   <script>
-    function showDetails(name, role, pronouns, hometown, bio, login, item, headshot) {
-        document.getElementById('staff-name').innerText = name;
-        document.getElementById('staff-role').innerText = `Role: ${role}`;
-        document.getElementById('staff-pronouns').innerText = `Pronouns: ${pronouns}`;
-        document.getElementById('staff-hometown').innerText = `Hometown: ${hometown}`;
-        document.getElementById('staff-login').innerText = `CS login: ${login}`;
-        document.getElementById('staff-bio').innerText = `Bio: ${bio}`;
-
-        // Update headshot image
-        const headshotImg = document.getElementById('staff-headshot');
-        headshotImg.src = headshot;
-        headshotImg.style.display = 'block';
-
-        // Update minecraft item image
-        const minecraftItem = document.getElementById('staff-item');
-        minecraftItem.src = item;
-        minecraftItem.style.display = 'inline-block';
+    const staffMembers = [
+    {
+        name: "Amy Greenwald",
+        role: "Professor",
+        pronouns: "She/Her",
+        hometown: "Providence, RI",
+        bio: "Amy bio",
+        login: "amy",
+        baseName: "amy"
+    },
+    {
+        name: "Eric Ewing",
+        role: "Professor",
+        pronouns: "He/Him",
+        hometown: "Boston, MA",
+        bio: "Eric bio",
+        login: "eric login",
+        baseName: "eric"
+    },
+    {
+        name: "Isha Ponugoti",
+        role: "HTA",
+        pronouns: "She/Her",
+        hometown: "Carmel, IN",
+        bio: "Isha bio",
+        login: "iponugot",
+        baseName: "isha"
+    },
+    {
+        name: "Grant Landon",
+        role: "HTA",
+        pronouns: "He/Him",
+        hometown: "South Hamilton, MA",
+        login: "glandon",
+        bio: "Hello everyone! I'm a Junior from the North Shore of Massachusetts studying Applied Math and Computer Science. In my free time, I enjoy playing Spikeball on the main green, climbing anything and everything that looks climbable (including but not limited to rocks, walls, and trees), and playing tabletop games like Dungeons and Dragons and Camel Up. I can't wait to meet you all!",
+        baseName: "grant"
+    },
+    {
+        name: "Alex Choi",
+        role: "UTA",
+        pronouns: "He/Him",
+        hometown: "Fairfax, Virginia",
+        login: "abchoi34",
+        bio: "Hi! I'm Alex and I'm a senior double majoring in CS and English. Outside of school I love to learn new recipes and play basketball, so you can probably find me in the OMAC.",
+        baseName: "alex_choi"
+    },
+    {
+        name: "Berny Li",
+        role: "UTA-STA",
+        pronouns: "He/Him",
+        hometown: "San Ramon, CA",
+        login: "bli116",
+        bio: "Hi everyone! I’m a junior from sunny Bay Area, CA. I love cycling, and in my free time you can catch me exploring new trails, jogging, or playing pickleball or basketball!",
+        baseName: "berny"
+    },
+    {
+        name: "Christian Armstrong",
+        role: "UTA-STA",
+        pronouns: "He/Him",
+        hometown: "Durango, CO",
+        login: "carmstr8",
+        bio: "Christian is a computer science concentrator who thinks AI and Robotics are pretty cool and has illusions of grandeur where he is the CEO of a large company working in that space. He's also a CC in Andrew's, enjoys poker, basketball, and reading.",
+        baseName: "christian"
+    },
+    {
+        name: "Annika Singh",
+        role: "UTA",
+        pronouns: "She/Her",
+        hometown: "Singapore / India",
+        login: "asing122",
+        bio: "Hi! I'm Annika, and I'm a junior studying CS and history. In my free time I rewatch Succession episodes and Bollywood movies, and I'm usually found on my laptop at the ERC.",
+        baseName: "annika"
+    },
+    {
+        name: "Nadia Bishop",
+        role: "UTA",
+        pronouns: "She/Her",
+        hometown: "Chapel Hill, NC",
+        login: "nmbishop",
+        bio: "Hello! My name is Nadia and I am a junior from Chapel Hill, North Carolina. In my free time, I love to crochet and watch British murder mystery shows!",
+        baseName: "nadia"
+    },
+    {
+        name: "Tim DeSimone",
+        role: "UTA",
+        pronouns: "He/Him/His",
+        hometown: "Dallas",
+        login: "tdesimo1",
+        bio: "My name is Tim and I am a senior concentrating in CS. In my free time I enjoy performing in theater, playing and watching sports, and playing board games with friends.",
+        baseName: "tim"
+    },
+    {
+        name: "An Cao",
+        role: "UTA",
+        pronouns: "She/Her",
+        hometown: "Hanoi, Vietnam",
+        login: "atcao",
+        bio: "Hi, I am a junior studying Math and CS-Econ. I enjoy sunset walks and exploring new cafes (still on my way to find best coffee/matcha in the area)!!",
+        baseName: "an"
+    },
+    {
+        name: "Jacob Hirschhorn",
+        role: "UTA",
+        pronouns: "He/Him",
+        hometown: "Baltimore, MD",
+        login: "jhirschh",
+        bio: "Hi! I am a senior from Baltimore, MD, concentrating in CS-Econ. I love playing tennis, doing crossword puzzles, reading, and watching movies with friends. Excited to be your TA!",
+        baseName: "jacob"
+    },
+    {
+        name: "Alex Wick",
+        role: "UTA",
+        pronouns: "He/Him",
+        hometown: "Burlington, VT",
+        login: "awick2",
+        bio: "Hello! I'm Alex, a senior from Vermont studying CS and IAPA. I love jamming with my friends, adventure sports like skiing and surfing, and aviation. I'm excited to be your TA this fall!",
+        baseName: "alex_wick"
+    },
+    {
+        name: "Johnny Elias",
+        role: "UTA",
+        pronouns: "He/Him",
+        hometown: "Dallas, TX",
+        login: "jelias7",
+        bio: "Hey guys! My name is Johnny and I'm a junior studying Math and CS. In my free time, I really enjoy photography and studying languages/linguistics!",
+        baseName: "johnny"
+    },
+    {
+        name: "Sahil Gupta",
+        role: "UTA",
+        pronouns: "He/Him",
+        hometown: "Herndon, VA",
+        login: "sgupt136",
+        bio: "Hi! My name is Sahil and I'm a junior concentrating in CS. In my free time, I love doing crosswords, playing badminton, or studying in the SciLi!",
+        baseName: "sahil"
+    },
+    {
+        name: "Torsten Ullrich",
+        role: "UTA-STA",
+        pronouns: "He/Him",
+        hometown: "Westford, MA",
+        login: "tullric1",
+        bio: "Hi! I am a senior doing an independent concentration in computational neuroscience — I would love to talk with you if you are thinking of studying something similar! In my free time, I like to play basketball, volleyball, soccer, or whatever IM sport is currently in season.",
+        baseName: "torsten"
+    },
+    {
+        name: "Sid Boppana",
+        role: "UTA",
+        pronouns: "He/Him",
+        hometown: "Bellingham, MA",
+        login: "sboppana",
+        bio: "Hey! I'm a senior from Massachusetts studying Applied Math - Computer Science. In my free time, I like playing Mario Kart and Catan with friends, cooking (poorly), and hiking. You can usually find me in the CIT 1st floor, CIT 2nd floor, CIT 3rd floor, CIT 4th floor, or even the CIT 5th floor.",
+        baseName: "sid"
     }
-    
+    ];
+
+    const staffGrid = document.querySelector('.staff-grid');
+
+    staffMembers.forEach(staff => {
+        const staffDiv = document.createElement('div');
+        staffDiv.className = 'staff-member';
+        staffDiv.onclick = () => showDetails(staff);
+
+        const img = document.createElement('img');
+        img.src = `images/skins/${staff.baseName}.webp`;
+        img.alt = staff.name;
+
+        const h3 = document.createElement('h3');
+        h3.textContent = `${staff.name} (${staff.role})`;
+
+        staffDiv.appendChild(img);
+        staffDiv.appendChild(h3);
+        staffGrid.appendChild(staffDiv);
+    });
+
+    function showDetails(staff) {
+        document.getElementById('staff-name').textContent = staff.name;
+        document.getElementById('staff-headshot').src = `images/headshots/${staff.baseName}.jpg`;
+        document.getElementById('staff-headshot').style.display = 'block';
+        document.getElementById('staff-role').textContent = `Role: ${staff.role}`;
+        document.getElementById('staff-pronouns').textContent = `Pronouns: ${staff.pronouns}`;
+        document.getElementById('staff-hometown').textContent = `Hometown: ${staff.hometown}`;
+        document.getElementById('staff-item').src = `images/items/${staff.baseName}.webp`;
+        document.getElementById('staff-item').style.display = 'inline-block';
+        document.getElementById('staff-login').textContent = `CS Login: ${staff.login}`;
+        document.getElementById('staff-bio').textContent = staff.bio;
+    }
+
   </script>
   
   </body>
