@@ -54,8 +54,9 @@
 <div class="staff-page">
 <div class="header">
     <h1>Staff</h1>
+    <button id="game-view-btn" class="minecraft-button">Game View</button>
+    <button id="grid-view-btn" class="minecraft-button">Grid View</button>
 </div>
-
 
 <div class="content-wrapper">
     <div class="staff-grid">
@@ -287,6 +288,36 @@
         document.getElementById('staff-bio').textContent = staff.bio;
     }
 
+    document.getElementById("grid-view-btn").addEventListener("click", function() {
+    toggleView('grid');
+    });
+
+    document.getElementById("game-view-btn").addEventListener("click", function() {
+        toggleView('game');
+    });
+
+    function toggleView(view) {
+        const contentWrapper = document.querySelector('.content-wrapper');
+        const staffGrid = document.querySelector('.staff-grid');
+        const detailsView = document.querySelector('.details');
+
+        if (view === 'grid') {
+            contentWrapper.classList.remove('game-view');
+            contentWrapper.classList.add('grid-view');
+            staffGrid.style.display = 'flex';
+            staffGrid.style.flexWrap = 'wrap';
+            staffGrid.style.justifyContent = 'center';
+            staffGrid.style.overflowY = 'auto';
+            detailsView.style.display = 'none';
+        } else if (view === 'game') {
+            contentWrapper.classList.remove('grid-view');
+            contentWrapper.classList.add('game-view');
+            staffGrid.style.display = 'block';
+            detailsView.style.display = 'block';
+        }
+    }
+
+    
   </script>
   
   </body>
