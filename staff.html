@@ -286,64 +286,81 @@
 
     const staffGrid = document.querySelector('.staff-grid');
 
-    staffMembers.forEach(staff => {
-        const staffDiv = document.createElement('div');
-        staffDiv.className = 'staff-member';
-        staffDiv.onclick = () => showDetails(staff);
+staffMembers.forEach(staff => {
+    const staffDiv = document.createElement('div');
+    staffDiv.className = 'staff-member';
+    staffDiv.onclick = () => showDetails(staff);
 
-        const img = document.createElement('img');
-        img.src = `images/skins/${staff.baseName}.webp`;
-        img.alt = staff.name;
+    const img = document.createElement('img');
+    img.alt = staff.name;
+    img.src = `images/skins/${staff.baseName}.webp`; // Default to skin view
 
-        const h3 = document.createElement('h3');
-        h3.textContent = `${staff.name} (${staff.role})`;
+    const h3 = document.createElement('h3');
+    h3.textContent = `${staff.name} (${staff.role})`;
 
-        staffDiv.appendChild(img);
-        staffDiv.appendChild(h3);
-        staffGrid.appendChild(staffDiv);
-    });
+    staffDiv.appendChild(img);
+    staffDiv.appendChild(h3);
+    staffGrid.appendChild(staffDiv);
 
-    function showDetails(staff) {
-        document.getElementById('staff-name').textContent = staff.name;
-        document.getElementById('staff-headshot').src = `images/headshots/${staff.baseName}.jpg`;
-        document.getElementById('staff-headshot').style.display = 'block';
-        document.getElementById('staff-role').textContent = `Role: ${staff.role}`;
-        document.getElementById('staff-pronouns').textContent = `Pronouns: ${staff.pronouns}`;
-        document.getElementById('staff-hometown').textContent = `Hometown: ${staff.hometown}`;
-        document.getElementById('staff-item').src = `images/items/${staff.baseName}.webp`;
-        document.getElementById('staff-item').style.display = 'inline-block';
-        document.getElementById('staff-login').textContent = `CS Login: ${staff.login}`;
-        document.getElementById('staff-bio').textContent = staff.bio;
-    }
+    staffDiv.dataset.baseName = staff.baseName;
+});
 
-    document.getElementById("grid-view-btn").addEventListener("click", function() {
+function showDetails(staff) {
+    document.getElementById('staff-name').textContent = staff.name;
+    document.getElementById('staff-headshot').src = `images/headshots/${staff.baseName}.jpg`;
+    document.getElementById('staff-headshot').style.display = 'block';
+    document.getElementById('staff-role').textContent = `Role: ${staff.role}`;
+    document.getElementById('staff-pronouns').textContent = `Pronouns: ${staff.pronouns}`;
+    document.getElementById('staff-hometown').textContent = `Hometown: ${staff.hometown}`;
+    document.getElementById('staff-item').src = `images/items/${staff.baseName}.webp`;
+    document.getElementById('staff-item').style.display = 'inline-block';
+    document.getElementById('staff-login').textContent = `CS Login: ${staff.login}`;
+    document.getElementById('staff-bio').textContent = staff.bio;
+}
+
+document.getElementById("grid-view-btn").addEventListener("click", function() {
     toggleView('grid');
-    });
+});
 
-    document.getElementById("game-view-btn").addEventListener("click", function() {
-        toggleView('game');
-    });
+document.getElementById("game-view-btn").addEventListener("click", function() {
+    toggleView('game');
+});
 
-    function toggleView(view) {
-        const contentWrapper = document.querySelector('.content-wrapper');
-        const staffGrid = document.querySelector('.staff-grid');
-        const detailsView = document.querySelector('.details');
+function toggleView(view) {
+    const contentWrapper = document.querySelector('.content-wrapper');
+    const staffGrid = document.querySelector('.staff-grid');
+    const detailsView = document.querySelector('.details');
 
-        if (view === 'grid') {
-            contentWrapper.classList.remove('game-view');
-            contentWrapper.classList.add('grid-view');
-            staffGrid.style.display = 'flex';
-            staffGrid.style.flexWrap = 'wrap';
-            staffGrid.style.justifyContent = 'center';
-            staffGrid.style.overflowY = 'auto';
-            detailsView.style.display = 'none';
-        } else if (view === 'game') {
-            contentWrapper.classList.remove('grid-view');
-            contentWrapper.classList.add('game-view');
-            staffGrid.style.display = 'block';
-            detailsView.style.display = 'block';
-        }
+    const staffImages = document.querySelectorAll('.staff-member img');
+
+    if (view === 'grid') {
+        contentWrapper.classList.remove('game-view');
+        contentWrapper.classList.add('grid-view');
+        staffGrid.style.display = 'flex';
+        staffGrid.style.flexWrap = 'wrap';
+        staffGrid.style.justifyContent = 'center';
+        staffGrid.style.overflowY = 'auto';
+        detailsView.style.display = 'none';
+
+        // Update image sources to headshots for grid view
+        staffImages.forEach(img => {
+            const baseName = img.parentElement.dataset.baseName;
+            img.src = `images/headshots/${baseName}.jpg`;
+        });
+
+    } else if (view === 'game') {
+        contentWrapper.classList.remove('grid-view');
+        contentWrapper.classList.add('game-view');
+        staffGrid.style.display = 'block';
+        detailsView.style.display = 'block';
+
+        // Revert image sources to skins for game view
+        staffImages.forEach(img => {
+            const baseName = img.parentElement.dataset.baseName;
+            img.src = `images/skins/${baseName}.webp`;
+        });
     }
+}
 
     
   </script>
