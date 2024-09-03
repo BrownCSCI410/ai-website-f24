@@ -97,7 +97,6 @@
         pronouns: "She/Her",
         hometown: "Providence, RI",
         bio: "My research is aimed at building AI agents that make effective decisions in multi-agent—part human, part artificial—environments. The bulk of my efforts have been in service of perfecting market designs, with applications ranging from renewable energy markets to online ad exchanges to wireless spectrum auctions.",
-        login: "amy",
         baseName: "amy"
     },
     {
@@ -106,7 +105,6 @@
         pronouns: "He/Him",
         hometown: "Syracuse, NY",
         bio: "Hi! I like robots. I've destroyed more robots than you've ever seen. I stepped on one once.",
-        login: "eric login",
         baseName: "eric"
     },
     {
@@ -114,7 +112,7 @@
         role: "HTA",
         pronouns: "She/Her",
         hometown: "Carmel, IN",
-        bio: "Hi!",
+        bio: "Hi! Whatever UTA finds this pls Slack me bio ideas pls",
         login: "iponugot",
         baseName: "isha"
     },
@@ -323,7 +321,15 @@ function showDetails(staff) {
     document.getElementById('staff-hometown').textContent = `Hometown: ${staff.hometown}`;
     document.getElementById('staff-item').src = `images/items/${staff.baseName}.webp`;
     document.getElementById('staff-item').style.display = 'inline-block';
-    document.getElementById('staff-login').textContent = `CS Login: ${staff.login}`;
+    
+    // Check if staff.login is provided
+    if (staff.login) {
+        document.getElementById('staff-login').textContent = `CS Login: ${staff.login}`;
+        document.getElementById('staff-login').style.display = 'block';
+    } else {
+        document.getElementById('staff-login').style.display = 'none';
+    }
+
     document.getElementById('staff-bio').textContent = staff.bio;
 }
 
