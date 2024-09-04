@@ -161,6 +161,23 @@ border-top: 1px solid white;
   color: white;
 }
 
+.larger-skin-1 img {
+  width: 100%;
+  max-width: 165px;
+  height: auto;
+}
+
+.larger-skin-2 img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+}
+.larger-skin-sid img {
+  width: 100%;
+  max-width: 140px;
+  height: auto;
+}
+
 .details {
   width: 50%;
   padding: 20px;

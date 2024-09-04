@@ -296,6 +296,20 @@
 staffMembers.forEach(staff => {
     const staffDiv = document.createElement('div');
     staffDiv.className = 'staff-member';
+
+    // Apply the larger-skin class to specific staff members
+    if (['jen', 'dan'].includes(staff.baseName)) {
+        staffDiv.classList.add('larger-skin-1');
+    }
+
+    if (['evani', 'emily'].includes(staff.baseName)) {
+        staffDiv.classList.add('larger-skin-2');
+    }
+
+    if (['sid'].includes(staff.baseName)) {
+        staffDiv.classList.add('larger-skin-sid');
+    }
+
     staffDiv.onclick = () => showDetails(staff);
 
     const img = document.createElement('img');
