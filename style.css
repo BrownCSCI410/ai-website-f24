@@ -161,18 +161,18 @@ border-top: 1px solid white;
   color: white;
 }
 
-.larger-skin-1 img {
+.larger-skin-1 img[src$=".webp"] {
   width: 100%;
   max-width: 165px;
   height: auto;
 }
 
-.larger-skin-2 img {
+.larger-skin-2 img[src$=".webp"] {
   width: 100%;
   max-width: 200px;
   height: auto;
 }
-.larger-skin-sid img {
+.larger-skin-sid img[src$=".webp"] {
   width: 100%;
   max-width: 140px;
   height: auto;
