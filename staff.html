@@ -94,7 +94,6 @@
     {
         name: "Amy Greenwald",
         role: "Professor",
-        pronouns: "She/Her",
         hometown: "Providence, RI",
         bio: "My research is aimed at building AI agents that make effective decisions in multi-agent—part human, part artificial—environments. The bulk of my efforts have been in service of perfecting market designs, with applications ranging from renewable energy markets to online ad exchanges to wireless spectrum auctions.",
         baseName: "amy"
@@ -342,6 +341,14 @@ function showDetails(staff) {
         document.getElementById('staff-login').style.display = 'block';
     } else {
         document.getElementById('staff-login').style.display = 'none';
+    }
+
+    // Check if staff.login is provided
+    if (staff.pronouns) {
+        document.getElementById('staff-pronouns').textContent = `Pronouns: ${staff.pronouns}`;
+        document.getElementById('staff-pronouns').style.display = 'block';
+    } else {
+        document.getElementById('staff-pronouns').style.display = 'none';
     }
 
     document.getElementById('staff-bio').textContent = staff.bio;
