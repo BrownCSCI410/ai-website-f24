@@ -39,7 +39,7 @@ body {
 }
 
 .home-banner {
-  background-image: url('pack.png.png');
+  background-image: url('images/pack.png.png');
   background-size: cover;
   padding: 100px 0;
 }
