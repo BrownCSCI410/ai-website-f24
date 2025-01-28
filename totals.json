@@ -1,0 +1,422 @@
+{
+    "297915529": {
+        "wins": 5,
+        "losses": 7,
+        "total_score": 0.0,
+        "matches": 12,
+        "total_moves": 1298,
+        "total_duration": 7.014963388442993,
+        "name": "GreedyAgent + Simple Heuristic",
+        "elo": 1482.4275996116332
+    },
+    "297995682": {
+        "wins": 12,
+        "losses": 6,
+        "total_score": 0.0,
+        "matches": 18,
+        "total_moves": 1972,
+        "total_duration": 18.22156810760498,
+        "name": "Anna's 9x9 agent with ids",
+        "elo": 1580.1068421673665
+    },
+    "298095029": {
+        "wins": 11,
+        "losses": 13,
+        "total_score": 0.0,
+        "matches": 24,
+        "total_moves": 2289,
+        "total_duration": 17.040076732635498,
+        "name": "MCTS",
+        "elo": 1485.810971233766
+    },
+    "297219956": {
+        "wins": 11,
+        "losses": 7,
+        "total_score": 0.0,
+        "matches": 18,
+        "total_moves": 1673,
+        "total_duration": 18.952441215515137,
+        "name": "MEGA MCTS",
+        "elo": 1561.6804385752914
+    },
+    "298119717": {
+        "wins": 1,
+        "losses": 7,
+        "total_score": 0.0,
+        "matches": 8,
+        "total_moves": 3,
+        "total_duration": 0.0,
+        "name": "None",
+        "elo": 1433.1637414685313
+    },
+    "297936276": {
+        "wins": 10,
+        "losses": 10,
+        "total_score": 0.0,
+        "matches": 20,
+        "total_moves": 1441,
+        "total_duration": 5.027917861938477,
+        "name": "GreedyAgent + Simple Heuristic",
+        "elo": 1494.253978083075
+    },
+    "297835315": {
+        "wins": 11,
+        "losses": 13,
+        "total_score": 0.0,
+        "matches": 24,
+        "total_moves": 1,
+        "total_duration": 0.0,
+        "name": "None",
+        "elo": 1454.5032199080727
+    },
+    "297282574": {
+        "wins": 11,
+        "losses": 7,
+        "total_score": 0.0,
+        "matches": 18,
+        "total_moves": 1878,
+        "total_duration": 18.870550394058228,
+        "name": "FinalAgent(9, OpenerAgent(9, 0.0, 0), MCTS(9, 1.4142135623730951, GreedyAgent(9, Simple Heuristic), 2, inf, True))",
+        "elo": 1561.4024826590733
+    },
+    "297690423": {
+        "wins": 8,
+        "losses": 12,
+        "total_score": 0.0,
+        "matches": 20,
+        "total_moves": 2,
+        "total_duration": 0.0,
+        "name": "Floppy Disk",
+        "elo": 1437.0408163874695
+    },
+    "297696140": {
+        "wins": 10,
+        "losses": 0,
+        "total_score": 0.0,
+        "matches": 10,
+        "total_moves": 1047,
+        "total_duration": 19.557775497436523,
+        "name": "HybridModifiedMCTSAgent",
+        "elo": 1640.6739299092408
+    },
+    "297654034": {
+        "wins": 6,
+        "losses": 10,
+        "total_score": 0.0,
+        "matches": 16,
+        "total_moves": 2,
+        "total_duration": 0.0,
+        "name": "HybridAgent switch_threshold=10",
+        "elo": 1439.5391549929495
+    },
+    "297559198": {
+        "wins": 7,
+        "losses": 11,
+        "total_score": 0.0,
+        "matches": 18,
+        "total_moves": 2,
+        "total_duration": 0.0,
+        "name": "<agents.HybridMCTS object at 0x7fff2ae69310>",
+        "elo": 1442.1069790642448
+    },
+    "297661637": {
+        "wins": 12,
+        "losses": 6,
+        "total_score": 0.0,
+        "matches": 18,
+        "total_moves": 1321,
+        "total_duration": 5.00439453125,
+        "name": "_007Agent",
+        "elo": 1578.3445441048957
+    },
+    "2874543": {
+        "wins": 10,
+        "losses": 10,
+        "total_score": 0.0,
+        "matches": 20,
+        "total_moves": 100,
+        "total_duration": 0.0,
+        "name": "Glass Joe",
+        "elo": 1496.199137784473
+    },
+    "297428564": {
+        "wins": 1,
+        "losses": 7,
+        "total_score": 0.0,
+        "matches": 8,
+        "total_moves": 3,
+        "total_duration": 0.0,
+        "name": "YIPEE",
+        "elo": 1431.4515790198527
+    },
+    "297681618": {
+        "wins": 8,
+        "losses": 0,
+        "total_score": 0.0,
+        "matches": 8,
+        "total_moves": 1235,
+        "total_duration": 6.981490612030029,
+        "name": "HybridMCTS-AB",
+        "elo": 1606.0799210709724
+    },
+    "297873466": {
+        "wins": 0,
+        "losses": 6,
+        "total_score": 0.0,
+        "matches": 6,
+        "total_moves": 9,
+        "total_duration": 0.0,
+        "name": "Gogeta Agent)",
+        "elo": 1428.2601428393978
+    },
+    "298042210": {
+        "wins": 10,
+        "losses": 4,
+        "total_score": 0.0,
+        "matches": 14,
+        "total_moves": 1213,
+        "total_duration": 16.004509210586548,
+        "name": "FINAL AGENT",
+        "elo": 1592.4458058295158
+    },
+    "298108976": {
+        "wins": 10,
+        "losses": 0,
+        "total_score": 0.0,
+        "matches": 10,
+        "total_moves": 781,
+        "total_duration": 11.4369957447052,
+        "name": "FINAL AGENT",
+        "elo": 1631.1334413245647
+    },
+    "297896328": {
+        "wins": 6,
+        "losses": 6,
+        "total_score": 0.0,
+        "matches": 12,
+        "total_moves": 529,
+        "total_duration": 6.004814386367798,
+        "name": "MCTS",
+        "elo": 1490.2186811274241
+    },
+    "297782708": {
+        "wins": 1,
+        "losses": 5,
+        "total_score": 0.0,
+        "matches": 6,
+        "total_moves": 2,
+        "total_duration": 0.0,
+        "name": "HybridAgent",
+        "elo": 1428.2601428393978
+    },
+    "297656492": {
+        "wins": 2,
+        "losses": 6,
+        "total_score": 0.0,
+        "matches": 8,
+        "total_moves": 10,
+        "total_duration": 0.0,
+        "name": "HybridGoAgent9x9",
+        "elo": 1458.8624313251792
+    },
+    "296709987": {
+        "wins": 7,
+        "losses": 1,
+        "total_score": 0.0,
+        "matches": 8,
+        "total_moves": 668,
+        "total_duration": 2.947413444519043,
+        "name": "GreedyAgent + Simple Heuristic",
+        "elo": 1572.4367799421498
+    },
+    "297551459": {
+        "wins": 1,
+        "losses": 7,
+        "total_score": 0.0,
+        "matches": 8,
+        "total_moves": 3,
+        "total_duration": 0.0,
+        "name": "Sunavator",
+        "elo": 1422.7742456662777
+    },
+    "298057875": {
+        "wins": 7,
+        "losses": 1,
+        "total_score": 0.0,
+        "matches": 8,
+        "total_moves": 426,
+        "total_duration": 11.228882312774658,
+        "name": "Go-ku 9x9",
+        "elo": 1599.8251761944573
+    },
+    "297909001": {
+        "wins": 8,
+        "losses": 2,
+        "total_score": 0.0,
+        "matches": 10,
+        "total_moves": 154,
+        "total_duration": 8.081857442855835,
+        "name": "<agents.Hybrid_Agent object at 0x7fff2b7107d0>",
+        "elo": 1569.3010750682472
+    },
+    "297797532": {
+        "wins": 5,
+        "losses": 5,
+        "total_score": 0.0,
+        "matches": 10,
+        "total_moves": 10,
+        "total_duration": 0.0,
+        "name": "MCTS",
+        "elo": 1498.5950500432068
+    },
+    "297864726": {
+        "wins": 2,
+        "losses": 8,
+        "total_score": 0.0,
+        "matches": 10,
+        "total_moves": 3,
+        "total_duration": 0.0,
+        "name": "<agents.DeepQAgent object at 0x7fff2afd6a10>",
+        "elo": 1402.5984114675016
+    },
+    "297969384": {
+        "wins": 4,
+        "losses": 6,
+        "total_score": 0.0,
+        "matches": 10,
+        "total_moves": 9,
+        "total_duration": 0.0,
+        "name": "MCTS",
+        "elo": 1468.2584076807398
+    },
+    "296900095": {
+        "wins": 2,
+        "losses": 6,
+        "total_score": 0.0,
+        "matches": 8,
+        "total_moves": 60,
+        "total_duration": 0.0,
+        "name": "Custom Agent",
+        "elo": 1460.1273245203065
+    },
+    "298007323": {
+        "wins": 2,
+        "losses": 6,
+        "total_score": 0.0,
+        "matches": 8,
+        "total_moves": 2,
+        "total_duration": 0.0,
+        "name": "SakethPauravAgent + Learned Heuristic",
+        "elo": 1452.5855984867972
+    },
+    "297892679": {
+        "wins": 5,
+        "losses": 7,
+        "total_score": 0.0,
+        "matches": 12,
+        "total_moves": 1,
+        "total_duration": 0.0,
+        "name": "Personality + Heuristic",
+        "elo": 1466.8412000339752
+    },
+    "297088779": {
+        "wins": 8,
+        "losses": 2,
+        "total_score": 0.0,
+        "matches": 10,
+        "total_moves": 564,
+        "total_duration": 7.004796266555786,
+        "name": "MCTS",
+        "elo": 1581.9414402903249
+    },
+    "298082190": {
+        "wins": 8,
+        "losses": 2,
+        "total_score": 0.0,
+        "matches": 10,
+        "total_moves": 39,
+        "total_duration": 0.0,
+        "name": "AgentP Large Board",
+        "elo": 1569.2784622901795
+    },
+    "297886487": {
+        "wins": 3,
+        "losses": 7,
+        "total_score": 0.0,
+        "matches": 10,
+        "total_moves": 2,
+        "total_duration": 0.0,
+        "name": "Personality + Heuristic",
+        "elo": 1426.2362805473929
+    },
+    "297623591": {
+        "wins": 3,
+        "losses": 9,
+        "total_score": 0.0,
+        "matches": 12,
+        "total_moves": 3,
+        "total_duration": 0.0,
+        "name": "AlphaBeta w/ depth 2 + Learned Heuristic",
+        "elo": 1424.365731579201
+    },
+    "297574671": {
+        "wins": 2,
+        "losses": 8,
+        "total_score": 0.0,
+        "matches": 10,
+        "total_moves": 3,
+        "total_duration": 0.0,
+        "name": "Sunavator",
+        "elo": 1431.6807334440352
+    },
+    "297923573": {
+        "wins": 4,
+        "losses": 6,
+        "total_score": 0.0,
+        "matches": 10,
+        "total_moves": 11,
+        "total_duration": 0.0,
+        "name": "FinalProject",
+        "elo": 1469.0593395737023
+    },
+    "297536110": {
+        "wins": 8,
+        "losses": 0,
+        "total_score": 0.0,
+        "matches": 8,
+        "total_moves": 662,
+        "total_duration": 5.0055787563323975,
+        "name": "Windows Strongest Warrior",
+        "elo": 1599.6940012653502
+    },
+    "297602539": {
+        "wins": 2,
+        "losses": 6,
+        "total_score": 0.0,
+        "matches": 8,
+        "total_moves": 2,
+        "total_duration": 0.0,
+        "name": "Hybrid Agent (Learned Policy + IDS)",
+        "elo": 1426.0609792350476
+    },
+    "297872985": {
+        "wins": 4,
+        "losses": 6,
+        "total_score": 0.0,
+        "matches": 10,
+        "total_moves": 25,
+        "total_duration": 0.0,
+        "name": "I want to GO home",
+        "elo": 1486.751689957326
+    },
+    "297685883": {
+        "wins": 4,
+        "losses": 4,
+        "total_score": 0.0,
+        "matches": 8,
+        "total_moves": 16,
+        "total_duration": 0.0,
+        "name": "Hybrid Agent",
+        "elo": 1491.8231794316844
+    }
+}
