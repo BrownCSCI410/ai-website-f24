@@ -1,0 +1,464 @@
+{
+    "Learned Deepening": {
+        "name": "Learned Deepening",
+        "wins": 44,
+        "losses": 126,
+        "average_moves": 14.523529411764706,
+        "elo": 1309.7788465699093
+    },
+    "<agents.MyAgent object at 0x7fff2a8cfe10>": {
+        "name": "<agents.MyAgent object at 0x7fff2a8cfe10>",
+        "wins": 72,
+        "losses": 84,
+        "average_moves": 25.993589743589745,
+        "elo": 1499.0569835761505
+    },
+    "Alpha Agent": {
+        "name": "Alpha Agent",
+        "wins": 7,
+        "losses": 149,
+        "average_moves": 0.4551282051282051,
+        "elo": 999.6501749761344
+    },
+    "IterativeDeepneing + Simple Heuristic": {
+        "name": "IterativeDeepneing + Simple Heuristic",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 15.833333333333334,
+        "elo": 1625.574251901059
+    },
+    "NN_MCTSAgent + Learned Heuristic": {
+        "name": "NN_MCTSAgent + Learned Heuristic",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 17.666666666666668,
+        "elo": 1617.2372847888244
+    },
+    "SuperCoolAgent": {
+        "name": "SuperCoolAgent",
+        "wins": 5,
+        "losses": 1,
+        "average_moves": 15.333333333333334,
+        "elo": 1557.3014110795755
+    },
+    "Anna's agent with ids": {
+        "name": "Anna's agent with ids",
+        "wins": 4,
+        "losses": 2,
+        "average_moves": 11.833333333333334,
+        "elo": 1497.3429441746935
+    },
+    "MCTS": {
+        "name": "MCTS",
+        "wins": 36,
+        "losses": 6,
+        "average_moves": 17.476190476190474,
+        "elo": 1586.6001058992365
+    },
+    "FinalAgent with MCTS, IDS, and Value/Policy Networks": {
+        "name": "FinalAgent with MCTS, IDS, and Value/Policy Networks",
+        "wins": 2,
+        "losses": 4,
+        "average_moves": 2.1666666666666665,
+        "elo": 1392.574193611869
+    },
+    "FinalAgent2 + Win Heuristic": {
+        "name": "FinalAgent2 + Win Heuristic",
+        "wins": 3,
+        "losses": 3,
+        "average_moves": 14.666666666666666,
+        "elo": 1455.825968127458
+    },
+    "HiiiBreadAgent": {
+        "name": "HiiiBreadAgent",
+        "wins": 5,
+        "losses": 1,
+        "average_moves": 17.333333333333332,
+        "elo": 1550.57392570555
+    },
+    "not very lethal Agent": {
+        "name": "not very lethal Agent",
+        "wins": 5,
+        "losses": 1,
+        "average_moves": 15.5,
+        "elo": 1553.1472088784396
+    },
+    "FinalAgent with Opening Book and Search Logic": {
+        "name": "FinalAgent with Opening Book and Search Logic",
+        "wins": 10,
+        "losses": 2,
+        "average_moves": 18.25,
+        "elo": 1565.8748886481314
+    },
+    "Hybridized Merp Agent + Merp Heuristic": {
+        "name": "Hybridized Merp Agent + Merp Heuristic",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 16.833333333333332,
+        "elo": 1605.2628842915465
+    },
+    "<agents.SupervisedGoAgent object at 0x7fff2ab4cad0>": {
+        "name": "<agents.SupervisedGoAgent object at 0x7fff2ab4cad0>",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 18.833333333333332,
+        "elo": 1598.303885423103
+    },
+    "The Final Boss Agent": {
+        "name": "The Final Boss Agent",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 18.833333333333332,
+        "elo": 1591.9425459105607
+    },
+    "<agents.ActorCriticAgent object at 0x7fffe5f95c50>": {
+        "name": "<agents.ActorCriticAgent object at 0x7fffe5f95c50>",
+        "wins": 5,
+        "losses": 1,
+        "average_moves": 14.833333333333334,
+        "elo": 1528.186413082226
+    },
+    "DynamicHybridAgent with ValueNetwork and MCTS": {
+        "name": "DynamicHybridAgent with ValueNetwork and MCTS",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 14.166666666666666,
+        "elo": 1585.3659649604417
+    },
+    "IterativeDeepneing + Learned Heuristic": {
+        "name": "IterativeDeepneing + Learned Heuristic",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 14.833333333333334,
+        "elo": 1580.131100021646
+    },
+    "Improved Q-Learning Agent with hardcoded opening and late-game alpha-beta": {
+        "name": "Improved Q-Learning Agent with hardcoded opening and late-game alpha-beta",
+        "wins": 5,
+        "losses": 1,
+        "average_moves": 15.5,
+        "elo": 1517.1249445820356
+    },
+    "Efe_Luke_SUPERBOT": {
+        "name": "Efe_Luke_SUPERBOT",
+        "wins": 8,
+        "losses": 4,
+        "average_moves": 17.166666666666668,
+        "elo": 1442.460488123472
+    },
+    "FinalAgent(5, OpenerAgent(5, 0.0, 0), MCTS(5, 1.4142135623730951, AlphaBeta(5, 2, Advanced Heuristic), 2, inf, True))": {
+        "name": "FinalAgent(5, OpenerAgent(5, 0.0, 0), MCTS(5, 1.4142135623730951, AlphaBeta(5, 2, Advanced Heuristic), 2, inf, True))",
+        "wins": 4,
+        "losses": 2,
+        "average_moves": 13.833333333333334,
+        "elo": 1468.4880350744043
+    },
+    "Floppy Disk": {
+        "name": "Floppy Disk",
+        "wins": 1,
+        "losses": 5,
+        "average_moves": 0.3333333333333333,
+        "elo": 1314.9958928799194
+    },
+    "HybridModifiedMCTSAgent": {
+        "name": "HybridModifiedMCTSAgent",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 18.166666666666668,
+        "elo": 1591.664025856163
+    },
+    "AlphaBeta w/ depth 3 + Simple Heuristic": {
+        "name": "AlphaBeta w/ depth 3 + Simple Heuristic",
+        "wins": 1,
+        "losses": 5,
+        "average_moves": 0.3333333333333333,
+        "elo": 1319.4662118332465
+    },
+    "ImprovedMCTS": {
+        "name": "ImprovedMCTS",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 21.166666666666668,
+        "elo": 1594.404105872931
+    },
+    "HybridAgent switch_threshold=10": {
+        "name": "HybridAgent switch_threshold=10",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 15.166666666666666,
+        "elo": 1588.3545707155556
+    },
+    "LS_Policy_AB": {
+        "name": "LS_Policy_AB",
+        "wins": 3,
+        "losses": 3,
+        "average_moves": 13.0,
+        "elo": 1424.6051791223845
+    },
+    "Swapple-Doodle-Doo Agent": {
+        "name": "Swapple-Doodle-Doo Agent",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 18.166666666666668,
+        "elo": 1588.5791842046126
+    },
+    "<agents.HybridMCTS object at 0x7fff2b0ceb90>": {
+        "name": "<agents.HybridMCTS object at 0x7fff2b0ceb90>",
+        "wins": 5,
+        "losses": 1,
+        "average_moves": 19.666666666666668,
+        "elo": 1524.9427841536399
+    },
+    "IterativeDeepening + Improved Heuristic": {
+        "name": "IterativeDeepening + Improved Heuristic",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 18.5,
+        "elo": 1582.4728198796868
+    },
+    "AdaptiveHybridAgent": {
+        "name": "AdaptiveHybridAgent",
+        "wins": 2,
+        "losses": 4,
+        "average_moves": 4.5,
+        "elo": 1366.893918576335
+    },
+    "<agents.DeepQLearningGoAgent object at 0x7fff2a364610>": {
+        "name": "<agents.DeepQLearningGoAgent object at 0x7fff2a364610>",
+        "wins": 5,
+        "losses": 1,
+        "average_moves": 20.333333333333332,
+        "elo": 1532.8138389238281
+    },
+    "_007Agent": {
+        "name": "_007Agent",
+        "wins": 5,
+        "losses": 1,
+        "average_moves": 17.5,
+        "elo": 1531.5579364044038
+    },
+    "Hybrid Agent with Preset Opener, ValueAgent and IDSAgent": {
+        "name": "Hybrid Agent with Preset Opener, ValueAgent and IDSAgent",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 18.0,
+        "elo": 1583.3854693313679
+    },
+    "Glass Joe": {
+        "name": "Glass Joe",
+        "wins": 2,
+        "losses": 4,
+        "average_moves": 6.5,
+        "elo": 1361.998375492847
+    },
+    "YIPEE": {
+        "name": "YIPEE",
+        "wins": 1,
+        "losses": 5,
+        "average_moves": 0.3333333333333333,
+        "elo": 1315.5496295759651
+    },
+    "Better MCTS Agent with Value Network": {
+        "name": "Better MCTS Agent with Value Network",
+        "wins": 1,
+        "losses": 5,
+        "average_moves": 0.3333333333333333,
+        "elo": 1326.428291359323
+    },
+    "MirrorAgent": {
+        "name": "MirrorAgent",
+        "wins": 5,
+        "losses": 1,
+        "average_moves": 12.333333333333334,
+        "elo": 1547.652055742019
+    },
+    "HybridMCTS-AB": {
+        "name": "HybridMCTS-AB",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 23.0,
+        "elo": 1597.6602115576677
+    },
+    "Gogeta Agent)": {
+        "name": "Gogeta Agent)",
+        "wins": 2,
+        "losses": 4,
+        "average_moves": 1.1666666666666667,
+        "elo": 1382.8272294698716
+    },
+    "HybridAgent": {
+        "name": "HybridAgent",
+        "wins": 11,
+        "losses": 1,
+        "average_moves": 15.416666666666666,
+        "elo": 1604.9232475289598
+    },
+    "FINAL AGENT": {
+        "name": "FINAL AGENT",
+        "wins": 12,
+        "losses": 0,
+        "average_moves": 18.916666666666668,
+        "elo": 1655.843514825001
+    },
+    "DQN Agent": {
+        "name": "DQN Agent",
+        "wins": 5,
+        "losses": 1,
+        "average_moves": 16.833333333333332,
+        "elo": 1525.3861823357793
+    },
+    "I want to GO home": {
+        "name": "I want to GO home",
+        "wins": 2,
+        "losses": 4,
+        "average_moves": 5.5,
+        "elo": 1373.2326244155138
+    },
+    "HybridAgent (Opening Book + Alpha-Beta with Transposition Tables + Policy Network) [5x5]": {
+        "name": "HybridAgent (Opening Book + Alpha-Beta with Transposition Tables + Policy Network) [5x5]",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 17.833333333333332,
+        "elo": 1591.3302903339559
+    },
+    "HybridGoAgent5x5": {
+        "name": "HybridGoAgent5x5",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 20.5,
+        "elo": 1586.7952416547837
+    },
+    "GreedyAgent + Simple Heuristic": {
+        "name": "GreedyAgent + Simple Heuristic",
+        "wins": 5,
+        "losses": 1,
+        "average_moves": 21.0,
+        "elo": 1528.2675757526017
+    },
+    "Sunavator": {
+        "name": "Sunavator",
+        "wins": 1,
+        "losses": 5,
+        "average_moves": 0.3333333333333333,
+        "elo": 1314.062629617257
+    },
+    "HybridAgent: Policy -> MCTS -> AlphaBeta": {
+        "name": "HybridAgent: Policy -> MCTS -> AlphaBeta",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 18.833333333333332,
+        "elo": 1589.4912601271421
+    },
+    "FinalAgent with ValueNetwork by WJ & JP": {
+        "name": "FinalAgent with ValueNetwork by WJ & JP",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 15.833333333333334,
+        "elo": 1583.8158343739435
+    },
+    "Hybrid Agent Learned Heuristic": {
+        "name": "Hybrid Agent Learned Heuristic",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 16.5,
+        "elo": 1578.6742082229296
+    },
+    "Go-ku 5x5": {
+        "name": "Go-ku 5x5",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 16.5,
+        "elo": 1574.0183486246783
+    },
+    "<agents.Hybrid_Agent object at 0x7fffe60aca50>": {
+        "name": "<agents.Hybrid_Agent object at 0x7fffe60aca50>",
+        "wins": 5,
+        "losses": 1,
+        "average_moves": 16.5,
+        "elo": 1516.2120978958833
+    },
+    "Better2Hybrid Agent": {
+        "name": "Better2Hybrid Agent",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 14.833333333333334,
+        "elo": 1571.4428521713705
+    },
+    "FinalAgent + Win Heuristic": {
+        "name": "FinalAgent + Win Heuristic",
+        "wins": 5,
+        "losses": 1,
+        "average_moves": 20.5,
+        "elo": 1508.8080632123454
+    },
+    "TranspositionAlphaBetaAgent": {
+        "name": "TranspositionAlphaBetaAgent",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 19.5,
+        "elo": 1569.293852329688
+    },
+    "<agents.FinalAgent object at 0x7fff2ad873d0>": {
+        "name": "<agents.FinalAgent object at 0x7fff2ad873d0>",
+        "wins": 2,
+        "losses": 4,
+        "average_moves": 1.1666666666666667,
+        "elo": 1352.5967622843336
+    },
+    "EnhancedSearchAgent": {
+        "name": "EnhancedSearchAgent",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 20.833333333333332,
+        "elo": 1570.4637564349898
+    },
+    "SakethPauravAgent + Learned Heuristic": {
+        "name": "SakethPauravAgent + Learned Heuristic",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 16.5,
+        "elo": 1566.4347042854615
+    },
+    "<agents.AB_MCTSHybridAgent object at 0x7fff2ac39e50>": {
+        "name": "<agents.AB_MCTSHybridAgent object at 0x7fff2ac39e50>",
+        "wins": 5,
+        "losses": 1,
+        "average_moves": 14.666666666666666,
+        "elo": 1508.6919284706998
+    },
+    "MyAgent": {
+        "name": "MyAgent",
+        "wins": 3,
+        "losses": 3,
+        "average_moves": 2.0,
+        "elo": 1403.2936090571009
+    },
+    "AgentP Small Board": {
+        "name": "AgentP Small Board",
+        "wins": 6,
+        "losses": 0,
+        "average_moves": 15.166666666666666,
+        "elo": 1574.16197840846
+    },
+    "Legendary Lightmaker": {
+        "name": "Legendary Lightmaker",
+        "wins": 1,
+        "losses": 5,
+        "average_moves": 0.3333333333333333,
+        "elo": 1301.1850599647091
+    },
+    "AIAIAIAIAIAIAIAIAIAI2": {
+        "name": "AIAIAIAIAIAIAIAIAIAI2",
+        "wins": 1,
+        "losses": 5,
+        "average_moves": 0.3333333333333333,
+        "elo": 1314.8958847810254
+    },
+    "AlphaBeta w/ depth 3 + Learned Heuristic": {
+        "name": "AlphaBeta w/ depth 3 + Learned Heuristic",
+        "wins": 2,
+        "losses": 0,
+        "average_moves": 18.5,
+        "elo": 1532.6223125331524
+    }
+}
