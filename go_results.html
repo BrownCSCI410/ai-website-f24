@@ -235,8 +235,8 @@
     <div id="noResults" class="no-results" style="display: none;">No agents found matching your search.</div>
     
     <footer>
-        <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #666;">
-            <p>This leaderboard automatically loads results.json from the same directory</p>
+        <div style="text-align: center; margin-top: 20px; font-size: 14px; color: #666;">
+            <p>Go Agent Leaderboard | Data from paste.txt file</p>
         </div>
     </footer>
 
@@ -267,23 +267,8 @@
         // Sort headers
         const headers = document.querySelectorAll('th[data-sort]');
 
-        // Example data
-        const exampleData = {
-            "297915529": {
-                "name": "GreedyAgent + Simple Heuristic",
-                "average_score": -0.16666666666666666,
-                "average_moves": 108.16666666666667,
-                "average_duration": 0.5845802823702494,
-                "elo": 1482.4275996116332
-            },
-            "297995682": {
-                "name": "Anna's 9x9 agent with ids",
-                "average_score": 0.3333333333333333,
-                "average_moves": 109.55555555555556,
-                "average_duration": 1.0123093393113878,
-                "elo": 1580.1068421673665
-            }
-        };
+        // Example data (removed since we're using the hardcoded version above)
+        const exampleData = {};
         
         // Check if we have data in paste.txt, otherwise use the example data
         try {
@@ -470,13 +455,94 @@
             sortOrderSelect.value = currentSort.order;
         }
 
-        // Initialize and try to load results.json automatically
+        // Initialize with embedded data then try to load results.json
         document.addEventListener('DOMContentLoaded', () => {
-            // Define a relative path to results.json
-            const resultsPath = './results.json';
+            // First load embedded data as a fallback
+            const embeddedData = {
+                "297915529": {
+                    "name": "GreedyAgent + Simple Heuristic",
+                    "average_score": -0.16666666666666666,
+                    "average_moves": 108.16666666666667,
+                    "average_duration": 0.5845802823702494,
+                    "elo": 1482.4275996116332
+                },
+                "297995682": {
+                    "name": "Anna's 9x9 agent with ids",
+                    "average_score": 0.3333333333333333,
+                    "average_moves": 109.55555555555556,
+                    "average_duration": 1.0123093393113878,
+                    "elo": 1580.1068421673665
+                },
+                "298095029": {
+                    "name": "MCTS",
+                    "average_score": -0.08333333333333333,
+                    "average_moves": 95.375,
+                    "average_duration": 0.7100031971931458,
+                    "elo": 1485.810971233766
+                },
+                "297219956": {
+                    "name": "MEGA MCTS",
+                    "average_score": 0.2222222222222222,
+                    "average_moves": 92.94444444444444,
+                    "average_duration": 1.052913400861952,
+                    "elo": 1561.6804385752914
+                },
+                "297936276": {
+                    "name": "GreedyAgent + Simple Heuristic",
+                    "average_score": 0.0,
+                    "average_moves": 72.05,
+                    "average_duration": 0.25139589309692384,
+                    "elo": 1494.253978083075
+                },
+                "297696140": {
+                    "name": "HybridModifiedMCTSAgent",
+                    "average_score": 1.0,
+                    "average_moves": 104.7,
+                    "average_duration": 1.9557775497436523,
+                    "elo": 1650.8726094399585
+                },
+                "297661637": {
+                    "name": "_007Agent",
+                    "average_score": 0.3333333333333333,
+                    "average_moves": 73.38888888888889,
+                    "average_duration": 0.2780219184027778,
+                    "elo": 1578.3445441048957
+                },
+                "297681618": {
+                    "name": "HybridMCTS-AB",
+                    "average_score": 1.0,
+                    "average_moves": 154.375,
+                    "average_duration": 0.8726863265037537,
+                    "elo": 1617.8881455765566
+                },
+                "298042210": {
+                    "name": "FINAL AGENT",
+                    "average_score": 0.42857142857142855,
+                    "average_moves": 86.64285714285714,
+                    "average_duration": 1.1431792293276106,
+                    "elo": 1592.4458058295158
+                },
+                "298108976": {
+                    "name": "FINAL AGENT",
+                    "average_score": 1.0,
+                    "average_moves": 78.1,
+                    "average_duration": 1.14369957447052,
+                    "elo": 1644.0626343598374
+                }
+            };
             
-            // First try to load results.json automatically
-            fetch(resultsPath)
+            // Load the embedded data first
+            loadAgentData(embeddedData);
+            console.log("Loaded embedded data with " + Object.keys(embeddedData).length + " agents");
+            
+            // For GitHub Pages we need to consider the repository structure
+            const currentPath = window.location.pathname;
+            const repoBase = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+            
+            // Try to load results.json from the same directory
+            console.log("Trying to load results.json from same directory as go_results.html");
+            
+            fetch('results.json')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`Failed to load results.json (${response.status})`);
@@ -484,6 +550,7 @@
                     return response.json();
                 })
                 .then(data => {
+                    // If successfully loaded results.json, use that instead
                     loadAgentData(data);
                     console.log("Successfully loaded results.json with " + Object.keys(data).length + " agents");
                     
@@ -496,44 +563,10 @@
                         </div>
                     `;
                     document.querySelector('.controls').prepend(successMsg);
-                    
-                    // Auto-remove the message after 5 seconds
-                    setTimeout(() => {
-                        successMsg.style.opacity = '0';
-                        successMsg.style.transition = 'opacity 1s';
-                        setTimeout(() => successMsg.remove(), 1000);
-                    }, 5000);
                 })
                 .catch(error => {
-                    console.warn("Could not automatically load results.json:", error);
-                    
-                    // Try with absolute path as fallback
-                    fetch('/results.json')
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error(`Failed to load /results.json (${response.status})`);
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            loadAgentData(data);
-                            console.log("Successfully loaded /results.json with " + Object.keys(data).length + " agents");
-                        })
-                        .catch(err => {
-                            console.warn("Could not load results.json with absolute path either:", err);
-                            console.log("Using example data instead");
-                            loadAgentData(exampleData);
-                            
-                            // Show a message about missing results.json
-                            const errorMsg = document.createElement('div');
-                            errorMsg.innerHTML = `
-                                <div style="background-color: #f8d7da; color: #721c24; padding: 10px; 
-                                    border-radius: 4px; margin: 10px 0; text-align: center;">
-                                    Could not find results.json. Using example data instead.
-                                </div>
-                            `;
-                            document.querySelector('.controls').prepend(errorMsg);
-                        });
+                    console.log("Could not load results.json:", error);
+                    console.log("Using embedded data instead");
                 });
         });
     </script>
