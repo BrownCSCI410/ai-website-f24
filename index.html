@@ -1,94 +1,612 @@
-<!doctype html>
-<html lang = "en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Agent Leaderboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
         
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
         
-        <!-- Custom CSS Stylesheet -->
-        <link href="style.css" rel="stylesheet">
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .search-box {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex-grow: 1;
+            max-width: 300px;
+        }
+        
+        .sort-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
 
-        <!-- Import FontAwesome (Icons) -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th {
+            background-color: #3498db;
+            color: white;
+            text-align: left;
+            padding: 12px 15px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        th:hover {
+            background-color: #2980b9;
+        }
+        
+        th::after {
+            content: "";
+            position: absolute;
+            right: 10px;
+            opacity: 0.5;
+        }
+        
+        th.sort-asc::after {
+            content: "▲";
+        }
+        
+        th.sort-desc::after {
+            content: "▼";
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tr:hover {
+            background-color: #f1f9ff;
+        }
+        
+        .rank {
+            font-weight: bold;
+            text-align: center;
+            width: 60px;
+        }
+        
+        .highlight-top {
+            background-color: #e8f6ff;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+            color: #7f8c8d;
+        }
 
-        <!-- Favicon -->
-        <link rel="icon" type="image/png" href="images/favicon.png">
-
-        <meta name="google-site-verification" content="Cy8vEwlMV3INtERjeHmqq5wsw8DT15B55r8QniSlG7I" />
-        <title>CS410: Foundations of AI</title>
-    </head>
-
+        .progress-bar-container {
+            width: 100%;
+            background-color: #ecf0f1;
+            border-radius: 10px;
+            height: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: #2ecc71;
+            border-radius: 10px;
+        }
+        
+        .win-rate {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .win-rate-value {
+            min-width: 60px;
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
 <body>
-<!-- Navigation Bar -->
-<nav class="navbar navbar-expand-sm navbar-dark pr-5 pl-5">
-  <a class="navbar-brand" href="index.html">CS410</a> 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="lectures.html">Lectures</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="discussions.html">Discussions</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="assignments.html">Assignments</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="resources.html">Resources</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="hours.html">Hours</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="staff.html">Staff</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="go_results.html">Final Project</a>
-    </ul>
-  </div>
-</nav>
-
-  <!-- Home Text -->
-  <div class="container home-banner d-flex mb-5">
-    <div class="container home-textbox p-4 mt-5 mb-5">
-      <h1 class="mb-4">CS410/1411: <br> Foundations of AI</h1>
-      <p class="mb-5">Welcome to CS410/1411! This course offers broad coverage 
-        of core topics in artificial intelligence (AI) as a prelude to students 
-        taking more in-depth AI courses later on. Throughout the course, you will
-        delve into key AI models, both logical and probabilistic, 
-        as well as algorithms for solving these models, including those based on search, planning, 
-        reinforcement learning, and both supervised and unsupervised machine learning. 
-        You will have the opportunity to apply these ideas to develop basic 
-        natural language processing, computer vision, robotic, and multiagent systems, 
-        all with an eye towards building socially responsible AI. </p>
-        <p>Course: CSCI 0410/1411
-            <br>
-            Professors: Amy Greenwald & Eric Ewing
-            <br>
-            Location: Salomon 001
-            <br>
-            Time: MWF 1:00-1:50PM
-        </p>
+    <h1>Go Agent Leaderboard</h1>
+    
+    <div class="controls">
+        <input type="text" id="searchInput" class="search-box" placeholder="Search agents...">
+        <div class="sort-container">
+            <label for="sortBy">Sort by:</label>
+            <select id="sortBy">
+                <option value="elo">ELO Rating</option>
+                <option value="average_score">Win Rate</option>
+                <option value="average_moves">Average Moves</option>
+                <option value="average_duration">Average Duration</option>
+            </select>
+            <select id="sortOrder">
+                <option value="desc">Descending</option>
+                <option value="asc">Ascending</option>
+            </select>
+        </div>
     </div>
-</div>
+    
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-value" id="totalAgents">-</div>
+            <div class="stat-label">Total Agents</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="avgElo">-</div>
+            <div class="stat-label">Average ELO</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="topElo">-</div>
+            <div class="stat-label">Top ELO</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="avgWinRate">-</div>
+            <div class="stat-label">Average Win Rate</div>
+        </div>
+    </div>
+    
+    <table id="leaderboardTable">
+        <thead>
+            <tr>
+                <th class="rank">Rank</th>
+                <th data-sort="name">Agent Name</th>
+                <th data-sort="elo">ELO Rating</th>
+                <th data-sort="average_score">Win Rate</th>
+                <th data-sort="average_moves">Avg Moves</th>
+                <th data-sort="average_duration">Avg Duration (s)</th>
+            </tr>
+        </thead>
+        <tbody id="leaderboardBody">
+            <!-- Rows will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+    <div id="noResults" class="no-results" style="display: none;">No agents found matching your search.</div>
+    
+    <footer>
+        <div style="text-align: center; margin-top: 20px; font-size: 14px; color: #666;">
+            <p>Go Agent Leaderboard | Data from paste.txt file</p>
+        </div>
+    </footer>
 
-<!-- Footer -->
-<footer class="footer-isha d-flex justify-content-between text-light pr-5 pl-5 pt-3">
-  <p>Fall 2024</p>
-  <p>Learn about <a href="https://packpng.com/">packpng</a>!</p>
-</footer>
+    <script>
+        let agents = {};
+        let filteredAgents = [];
+        
+        // Initial sort settings
+        let currentSort = {
+            field: 'elo',
+            order: 'desc'
+        };
+        
+        // Elements
+        const searchInput = document.getElementById('searchInput');
+        const sortBySelect = document.getElementById('sortBy');
+        const sortOrderSelect = document.getElementById('sortOrder');
+        const leaderboardBody = document.getElementById('leaderboardBody');
+        const noResults = document.getElementById('noResults');
+        const fileInput = document.getElementById('fileInput');
+        
+        // Stats elements
+        const totalAgentsEl = document.getElementById('totalAgents');
+        const avgEloEl = document.getElementById('avgElo');
+        const topEloEl = document.getElementById('topElo');
+        const avgWinRateEl = document.getElementById('avgWinRate');
+        
+        // Sort headers
+        const headers = document.querySelectorAll('th[data-sort]');
 
+        // Example data (removed since we're using the hardcoded version above)
+        const exampleData = {};
+        
+        // Check if we have data in paste.txt, otherwise use the example data
+        try {
+            if (typeof pasteData !== 'undefined') {
+                loadAgentData(pasteData);
+            } else {
+                loadAgentData(exampleData);
+            }
+        } catch (e) {
+            console.log("Using built-in example data");
+            loadAgentData(exampleData);
+        }
+        
+        // Remove unused file input handlers
+        // No more file upload functionality
+        
+        // Search input handler
+        searchInput.addEventListener('input', () => {
+            filterAndRenderAgents();
+        });
+        
+        // Sort handlers
+        sortBySelect.addEventListener('change', updateSort);
+        sortOrderSelect.addEventListener('change', updateSort);
+        
+        // Add click handlers to sortable headers
+        headers.forEach(header => {
+            header.addEventListener('click', () => {
+                const field = header.getAttribute('data-sort');
+                let order = 'desc';
+                
+                if (currentSort.field === field) {
+                    order = currentSort.order === 'desc' ? 'asc' : 'desc';
+                }
+                
+                currentSort = { field, order };
+                updateSortUI();
+                sortAgents();
+                renderAgents();
+            });
+        });
+        
+        function loadAgentData(data) {
+            agents = data;
+            console.log(`Loading data with ${Object.keys(data).length} agents`);
+            
+            // Filter out invalid agents and ensure all required properties exist
+            let validCount = 0;
+            let invalidCount = 0;
+            
+            for (const id in agents) {
+                const agent = agents[id];
+                
+                // Skip agents without required properties
+                if (!agent || !agent.name || agent.name === "None") {
+                    delete agents[id];
+                    invalidCount++;
+                    continue;
+                }
+                
+                // Ensure all required properties have values (use defaults if missing)
+                if (typeof agent.average_score === 'undefined') agent.average_score = 0;
+                if (typeof agent.average_moves === 'undefined') agent.average_moves = 0;
+                if (typeof agent.average_duration === 'undefined') agent.average_duration = 0;
+                if (typeof agent.elo === 'undefined') agent.elo = 1500;
+                
+                // Convert average_score to a win rate percentage
+                // Map from [-1, 1] to [0, 100]
+                agent.win_rate = (agent.average_score + 1) * 50;
+                
+                validCount++;
+            }
+            
+            console.log(`Valid agents: ${validCount}, Invalid: ${invalidCount}`);
+            updateStats();
+            filterAndRenderAgents();
+        }
+        
+        function updateStats() {
+            const agentList = Object.values(agents);
+            const validAgents = agentList.filter(a => a && a.average_moves > 0);
+            
+            if (validAgents.length === 0) {
+                totalAgentsEl.textContent = "0";
+                avgEloEl.textContent = "N/A";
+                topEloEl.textContent = "N/A";
+                avgWinRateEl.textContent = "N/A";
+                return;
+            }
+            
+            // Count
+            totalAgentsEl.textContent = validAgents.length;
+            
+            // Average ELO
+            const avgElo = validAgents.reduce((sum, agent) => sum + agent.elo, 0) / validAgents.length;
+            avgEloEl.textContent = isNaN(avgElo) ? "N/A" : avgElo.toFixed(0);
+            
+            // Top ELO
+            const eloValues = validAgents.map(agent => agent.elo).filter(elo => !isNaN(elo));
+            const topElo = eloValues.length > 0 ? Math.max(...eloValues) : 0;
+            topEloEl.textContent = isNaN(topElo) ? "N/A" : topElo.toFixed(0);
+            
+            // Average Win Rate
+            const avgWinRate = validAgents.reduce((sum, agent) => sum + agent.win_rate, 0) / validAgents.length;
+            avgWinRateEl.textContent = isNaN(avgWinRate) ? "N/A" : avgWinRate.toFixed(1) + '%';
+        }
+        
+        function filterAndRenderAgents() {
+            filterAgents();
+            sortAgents();
+            renderAgents();
+        }
+        
+        function filterAgents() {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            filteredAgents = Object.values(agents).filter(agent => {
+                // Make sure agent has required properties
+                if (!agent || !agent.name) return false;
+                
+                // For search: only filter by name if there's actually a search term
+                const nameMatch = searchTerm === '' || agent.name.toLowerCase().includes(searchTerm);
+                
+                // Changed threshold to include any agent with valid moves
+                // This is important - we now consider any agent with > 0 moves to be valid
+                const hasPlayedGames = agent.average_moves > 0;
+                
+                return hasPlayedGames && nameMatch;
+            });
+            
+            console.log(`Filtered agents: ${filteredAgents.length} (from ${Object.values(agents).length} total)`);
+            noResults.style.display = filteredAgents.length === 0 ? 'block' : 'none';
+        }
+        
+        function sortAgents() {
+            const { field, order } = currentSort;
+            
+            filteredAgents.sort((a, b) => {
+                let comparison = 0;
+                
+                // Special case for win rate (calculated from average_score)
+                if (field === 'average_score') {
+                    comparison = a.win_rate - b.win_rate;
+                } else {
+                    comparison = a[field] < b[field] ? -1 : (a[field] > b[field] ? 1 : 0);
+                }
+                
+                return order === 'asc' ? comparison : -comparison;
+            });
+        }
+        
+        function renderAgents() {
+            leaderboardBody.innerHTML = '';
+            
+            filteredAgents.forEach((agent, index) => {
+                const row = document.createElement('tr');
+                
+                // Add highlighting for top 3
+                if (index < 3) {
+                    row.classList.add('highlight-top');
+                }
+                
+                // Create win rate display with progress bar - safely handle possible NaN/undefined values
+                const winRateValue = isNaN(agent.win_rate) ? 0 : agent.win_rate;
+                const winRateDisplay = isNaN(agent.win_rate) ? 'N/A' : agent.win_rate.toFixed(1) + '%';
+                
+                const winRateHTML = `
+                    <div class="win-rate">
+                        <span class="win-rate-value">${winRateDisplay}</span>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: ${winRateValue}%"></div>
+                        </div>
+                    </div>
+                `;
+                
+                // Safely format other metrics
+                const eloDisplay = isNaN(agent.elo) ? 'N/A' : agent.elo.toFixed(0);
+                const movesDisplay = isNaN(agent.average_moves) ? 'N/A' : agent.average_moves.toFixed(1);
+                const durationDisplay = isNaN(agent.average_duration) ? 'N/A' : agent.average_duration.toFixed(3);
+                
+                row.innerHTML = `
+                    <td class="rank">${index + 1}</td>
+                    <td>${agent.name}</td>
+                    <td>${eloDisplay}</td>
+                    <td>${winRateHTML}</td>
+                    <td>${movesDisplay}</td>
+                    <td>${durationDisplay}</td>
+                `;
+                
+                leaderboardBody.appendChild(row);
+            });
+        }
+        
+        function updateSort() {
+            currentSort = {
+                field: sortBySelect.value,
+                order: sortOrderSelect.value
+            };
+            
+            updateSortUI();
+            sortAgents();
+            renderAgents();
+        }
+        
+        function updateSortUI() {
+            // Remove all current sort indicators
+            headers.forEach(header => {
+                header.classList.remove('sort-asc', 'sort-desc');
+            });
+            
+            // Add the current sort indicator
+            const currentHeader = document.querySelector(`th[data-sort="${currentSort.field}"]`);
+            if (currentHeader) {
+                currentHeader.classList.add(currentSort.order === 'asc' ? 'sort-asc' : 'sort-desc');
+            }
+            
+            // Update the select dropdowns
+            sortBySelect.value = currentSort.field;
+            sortOrderSelect.value = currentSort.order;
+        }
 
-<!-- JavaScript for Bootstrap: jQuery, Popper.js, Bootstrap JS plugins -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
-
+        // Initialize with embedded data then try to load results.json
+        document.addEventListener('DOMContentLoaded', () => {
+            // First load embedded data as a fallback
+            const embeddedData = {
+                "297915529": {
+                    "name": "GreedyAgent + Simple Heuristic",
+                    "average_score": -0.16666666666666666,
+                    "average_moves": 108.16666666666667,
+                    "average_duration": 0.5845802823702494,
+                    "elo": 1482.4275996116332
+                },
+                "297995682": {
+                    "name": "Anna's 9x9 agent with ids",
+                    "average_score": 0.3333333333333333,
+                    "average_moves": 109.55555555555556,
+                    "average_duration": 1.0123093393113878,
+                    "elo": 1580.1068421673665
+                },
+                "298095029": {
+                    "name": "MCTS",
+                    "average_score": -0.08333333333333333,
+                    "average_moves": 95.375,
+                    "average_duration": 0.7100031971931458,
+                    "elo": 1485.810971233766
+                },
+                "297219956": {
+                    "name": "MEGA MCTS",
+                    "average_score": 0.2222222222222222,
+                    "average_moves": 92.94444444444444,
+                    "average_duration": 1.052913400861952,
+                    "elo": 1561.6804385752914
+                },
+                "297936276": {
+                    "name": "GreedyAgent + Simple Heuristic",
+                    "average_score": 0.0,
+                    "average_moves": 72.05,
+                    "average_duration": 0.25139589309692384,
+                    "elo": 1494.253978083075
+                },
+                "297696140": {
+                    "name": "HybridModifiedMCTSAgent",
+                    "average_score": 1.0,
+                    "average_moves": 104.7,
+                    "average_duration": 1.9557775497436523,
+                    "elo": 1650.8726094399585
+                },
+                "297661637": {
+                    "name": "_007Agent",
+                    "average_score": 0.3333333333333333,
+                    "average_moves": 73.38888888888889,
+                    "average_duration": 0.2780219184027778,
+                    "elo": 1578.3445441048957
+                },
+                "297681618": {
+                    "name": "HybridMCTS-AB",
+                    "average_score": 1.0,
+                    "average_moves": 154.375,
+                    "average_duration": 0.8726863265037537,
+                    "elo": 1617.8881455765566
+                },
+                "298042210": {
+                    "name": "FINAL AGENT",
+                    "average_score": 0.42857142857142855,
+                    "average_moves": 86.64285714285714,
+                    "average_duration": 1.1431792293276106,
+                    "elo": 1592.4458058295158
+                },
+                "298108976": {
+                    "name": "FINAL AGENT",
+                    "average_score": 1.0,
+                    "average_moves": 78.1,
+                    "average_duration": 1.14369957447052,
+                    "elo": 1644.0626343598374
+                }
+            };
+            
+            // Load the embedded data first
+            loadAgentData(embeddedData);
+            console.log("Loaded embedded data with " + Object.keys(embeddedData).length + " agents");
+            
+            // Now try to load actual results.json
+            console.log("Trying to load results.json");
+            
+            fetch('results.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Failed to load results.json (${response.status})`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(`Successfully fetched results.json with ${Object.keys(data).length} entries`);
+                    
+                    // Check if we have any valid data first
+                    if (!data || Object.keys(data).length === 0) {
+                        throw new Error("results.json contains no data");
+                    }
+                    
+                    // If successfully loaded results.json, use that instead
+                    loadAgentData(data);
+                    
+                    // Show success message
+                    const successMsg = document.createElement('div');
+                    successMsg.innerHTML = `
+                        <div style="background-color: #d4edda; color: #155724; padding: 10px; 
+                            border-radius: 4px; margin: 10px 0; text-align: center;">
+                            Successfully loaded data from results.json (${Object.keys(data).length} agents)
+                        </div>
+                    `;
+                    document.querySelector('.controls').prepend(successMsg);
+                })
+                .catch(error => {
+                    console.log("Could not load results.json:", error);
+                    console.log("Using embedded data instead");
+                });
+        });
+        });
+    </script>
 </body>
 </html>
