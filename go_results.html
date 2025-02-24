@@ -236,7 +236,7 @@
     
     <footer>
         <div style="text-align: center; margin-top: 20px; font-size: 14px; color: #666;">
-            <p>Go Agent Leaderboard | Data from paste.txt file</p>
+            <p>Go Agent Leaderboard | Data from results.json</p>
         </div>
     </footer>
 
@@ -312,35 +312,79 @@
         });
         
         function loadAgentData(data) {
-            agents = data;
+            // Reset the agents object
+            agents = {};
+            console.log(`Loading data with ${Object.keys(data).length} entries`);
             
-            // Filter out invalid agents and ensure all required properties exist
-            for (const id in agents) {
-                const agent = agents[id];
-                
-                // Skip agents without required properties
-                if (!agent || !agent.name || agent.name === "None" || 
-                    typeof agent.average_score === 'undefined' ||
-                    typeof agent.average_moves === 'undefined' ||
-                    typeof agent.elo === 'undefined') {
-                    delete agents[id];
-                    continue;
-                }
-                
-                // Ensure average_duration exists
-                if (typeof agent.average_duration === 'undefined') {
-                    agent.average_duration = 0;
-                }
-                
-                // Convert average_score to a win rate percentage
-                if ('average_score' in agent) {
-                    // Map from [-1, 1] to [0, 100]
-                    agent.win_rate = (agent.average_score + 1) * 50;
-                } else {
-                    agent.win_rate = 50; // Default to 50% if missing
+            // Debug: log the first entry to see what we're working with
+            const firstKey = Object.keys(data)[0];
+            if (firstKey) {
+                console.log("Sample entry:", firstKey, data[firstKey]);
+            }
+            
+            // Copy data to agents object and process
+            let validCount = 0;
+            let invalidCount = 0;
+            
+            for (const id in data) {
+                try {
+                    const agent = data[id];
+                    
+                    // Skip empty entries
+                    if (!agent) {
+                        invalidCount++;
+                        continue;
+                    }
+                    
+                    // Skip agents without names or with "None" name
+                    if (!agent.name || agent.name === "None") {
+                        invalidCount++;
+                        continue;
+                    }
+                    
+                    // Skip agents with object references in their names
+                    if (agent.name.includes('object at 0x')) {
+                        invalidCount++;
+                        continue;
+                    }
+                    
+                    // Add the agent to our filtered collection
+                    agents[id] = {
+                        name: agent.name,
+                        wins: agent.wins || 0,
+                        losses: agent.losses || 0,
+                        average_moves: agent.average_moves || 0,
+                        average_duration: agent.average_duration || 0,
+                        elo: agent.elo || 1500
+                    };
+                    
+                    // Calculate win rate if we have wins/losses instead of average_score
+                    if ('wins' in agent && 'losses' in agent) {
+                        const totalGames = agent.wins + agent.losses;
+                        if (totalGames > 0) {
+                            // Calculate win rate as percentage
+                            agents[id].win_rate = (agent.wins / totalGames) * 100;
+                        } else {
+                            agents[id].win_rate = 0;
+                        }
+                    } else if ('average_score' in agent) {
+                        // If we have average_score, map from [-1, 1] to [0, 100]
+                        agents[id].win_rate = (agent.average_score + 1) * 50;
+                    } else {
+                        agents[id].win_rate = 0;
+                    }
+                    
+                    validCount++;
+                } catch (error) {
+                    console.error(`Error processing agent ${id}:`, error);
+                    invalidCount++;
                 }
             }
             
+            console.log(`Valid agents: ${validCount}, Invalid: ${invalidCount}`);
+            console.log("Final agents object has keys:", Object.keys(agents).length);
+            
+            // Update the stats and render
             updateStats();
             filterAndRenderAgents();
         }
@@ -383,19 +427,28 @@
         function filterAgents() {
             const searchTerm = searchInput.value.toLowerCase();
             
+            // Debug the agents object
+            console.log("Filtering agents from:", agents);
+            console.log("Total agents before filtering:", Object.keys(agents).length);
+            
             filteredAgents = Object.values(agents).filter(agent => {
                 // Make sure agent has required properties
-                if (!agent || !agent.name) return false;
+                if (!agent || !agent.name) {
+                    console.log("Skipping agent without name:", agent);
+                    return false;
+                }
                 
-                // Only include agents that have actually played games (more than 0 moves)
-                const hasPlayedGames = agent.average_moves > 0;
+                // For search: only filter by name if there's actually a search term
+                const nameMatch = searchTerm === '' || agent.name.toLowerCase().includes(searchTerm);
                 
-                // Search by name
-                const nameMatch = agent.name.toLowerCase().includes(searchTerm);
+                // Changed threshold to include any agent with valid moves
+                // This is important - we now consider any agent that is valid
+                const hasPlayedGames = true; // Allow all agents with names
                 
                 return hasPlayedGames && nameMatch;
             });
             
+            console.log(`Filtered agents: ${filteredAgents.length} (from ${Object.values(agents).length} total)`);
             noResults.style.display = filteredAgents.length === 0 ? 'block' : 'none';
         }
         
@@ -431,6 +484,10 @@
                 const winRateValue = isNaN(agent.win_rate) ? 0 : agent.win_rate;
                 const winRateDisplay = isNaN(agent.win_rate) ? 'N/A' : agent.win_rate.toFixed(1) + '%';
                 
+                // Create win-loss record display
+                const winLossDisplay = ('wins' in agent && 'losses' in agent) ? 
+                    `${agent.wins}-${agent.losses}` : 'N/A';
+                
                 const winRateHTML = `
                     <div class="win-rate">
                         <span class="win-rate-value">${winRateDisplay}</span>
@@ -438,6 +495,7 @@
                             <div class="progress-bar" style="width: ${winRateValue}%"></div>
                         </div>
                     </div>
+                    <div style="margin-top: 5px; font-size: 12px; color: #666;">${winLossDisplay}</div>
                 `;
                 
                 // Safely format other metrics
@@ -451,7 +509,7 @@
                     <td>${eloDisplay}</td>
                     <td>${winRateHTML}</td>
                     <td>${movesDisplay}</td>
-                    <td>${durationDisplay}</td>
+                    <td>${durationDisplay || 'N/A'}</td>
                 `;
                 
                 leaderboardBody.appendChild(row);
@@ -566,12 +624,8 @@
             loadAgentData(embeddedData);
             console.log("Loaded embedded data with " + Object.keys(embeddedData).length + " agents");
             
-            // For GitHub Pages we need to consider the repository structure
-            const currentPath = window.location.pathname;
-            const repoBase = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
-            
-            // Try to load results.json from the same directory
-            console.log("Trying to load results.json from same directory as go_results.html");
+            // Now try to load actual results.json
+            console.log("Trying to load results.json");
             
             fetch('results.json')
                 .then(response => {
@@ -581,24 +635,83 @@
                     return response.json();
                 })
                 .then(data => {
-                    // If successfully loaded results.json, use that instead
-                    loadAgentData(data);
-                    console.log("Successfully loaded results.json with " + Object.keys(data).length + " agents");
+                    console.log(`Successfully fetched results.json with data:`, data);
                     
-                    // Show success message
-                    const successMsg = document.createElement('div');
-                    successMsg.innerHTML = `
-                        <div style="background-color: #d4edda; color: #155724; padding: 10px; 
-                            border-radius: 4px; margin: 10px 0; text-align: center;">
-                            Successfully loaded data from results.json
-                        </div>
-                    `;
-                    document.querySelector('.controls').prepend(successMsg);
+                    // If data is empty or not what we expect, keep using embedded data
+                    if (!data || Object.keys(data).length === 0) {
+                        const statusMsg = document.createElement('div');
+                        statusMsg.innerHTML = `
+                            <div style="background-color: #fff3cd; color: #856404; padding: 10px; 
+                                border-radius: 4px; margin: 10px 0; text-align: center;">
+                                Loaded results.json, but it contains no data. Using embedded data instead.
+                            </div>
+                        `;
+                        document.querySelector('.controls').prepend(statusMsg);
+                        return; // Keep using embedded data
+                    }
+                    
+                    // Look for data that might be nested
+                    let agentData = data;
+                    
+                    // Check if the JSON might be in a different format than expected
+                    if (Object.keys(data).length === 1 && data[Object.keys(data)[0]] && 
+                        typeof data[Object.keys(data)[0]] === 'object') {
+                        // Data might be inside a wrapper object
+                        console.log("Data appears to be nested, using first property");
+                        agentData = data[Object.keys(data)[0]];
+                    }
+                    
+                    // Try to check if data is formatted like the paste.txt data
+                    const firstSample = Object.values(agentData)[0];
+                    console.log("First sample from data:", firstSample);
+                    
+                    // Only process data if it seems to have the right structure
+                    if (firstSample && typeof firstSample === 'object' && firstSample.name) {
+                        // If successfully loaded results.json with valid data, use that
+                        loadAgentData(agentData);
+                        
+                        // Show success message with agent count
+                        const validAgentCount = Object.keys(agents).length;
+                        const successMsg = document.createElement('div');
+                        successMsg.innerHTML = `
+                            <div style="background-color: #d4edda; color: #155724; padding: 10px; 
+                                border-radius: 4px; margin: 10px 0; text-align: center;">
+                                Successfully loaded data from results.json<br>
+                                Found ${Object.keys(agentData).length} entries, processed ${validAgentCount} valid agents
+                            </div>
+                        `;
+                        document.querySelector('.controls').prepend(successMsg);
+                    } else {
+                        // Data doesn't seem to be in the right format
+                        console.log("Data doesn't match expected format, using embedded data");
+                        const statusMsg = document.createElement('div');
+                        statusMsg.innerHTML = `
+                            <div style="background-color: #fff3cd; color: #856404; padding: 10px; 
+                                border-radius: 4px; margin: 10px 0; text-align: center;">
+                                results.json doesn't match expected format. Using embedded data instead.
+                            </div>
+                        `;
+                        document.querySelector('.controls').prepend(statusMsg);
+                    }
                 })
                 .catch(error => {
                     console.log("Could not load results.json:", error);
                     console.log("Using embedded data instead");
+                    
+                    // Show error message
+                    const errorMsg = document.createElement('div');
+                    errorMsg.innerHTML = `
+                        <div style="background-color: #f8d7da; color: #721c24; padding: 10px; 
+                            border-radius: 4px; margin: 10px 0; text-align: center;">
+                            Error loading results.json: ${error.message}<br>
+                            Using embedded data instead
+                        </div>
+                    `;
+                    document.querySelector('.controls').prepend(errorMsg);
                 });
+        });
+        });
+        });
         });
     </script>
 </body>
