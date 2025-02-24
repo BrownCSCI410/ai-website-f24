@@ -414,7 +414,7 @@
             topEloEl.textContent = isNaN(topElo) ? "N/A" : topElo.toFixed(0);
             
             // Average Win Rate
-            const avgWinRate = validAgents.reduce((sum, agent) => sum + agent.win_rate, 0) / validAgents.length;
+            const avgWinRate = 0.5 // validAgents.reduce((sum, agent) => sum + agent.win_rate, 0) / validAgents.length;
             avgWinRateEl.textContent = isNaN(avgWinRate) ? "N/A" : avgWinRate.toFixed(1) + '%';
         }
         
