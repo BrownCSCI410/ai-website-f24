@@ -501,7 +501,7 @@
                 // Safely format other metrics
                 const eloDisplay = isNaN(agent.elo) ? 'N/A' : agent.elo.toFixed(0);
                 const movesDisplay = isNaN(agent.average_moves) ? 'N/A' : agent.average_moves.toFixed(1);
-                const durationDisplay = isNaN(agent.average_duration) ? 'N/A' : agent.average_duration.toFixed(3);
+                // const durationDisplay = isNaN(agent.average_duration) ? 'N/A' : agent.average_duration.toFixed(3);
                 
                 row.innerHTML = `
                     <td class="rank">${index + 1}</td>
