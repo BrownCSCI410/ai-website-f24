@@ -225,7 +225,7 @@
                 <th data-sort="elo">ELO Rating</th>
                 <th data-sort="average_score">Win Rate</th>
                 <th data-sort="average_moves">Avg Moves</th>
-                <th data-sort="average_duration">Avg Duration (s)</th>
+<!--                 <th data-sort="average_duration">Avg Duration (s)</th> -->
             </tr>
         </thead>
         <tbody id="leaderboardBody">
@@ -337,16 +337,16 @@
                     }
                     
                     // Skip agents without names or with "None" name
-                    if (!agent.name || agent.name === "None") {
-                        invalidCount++;
-                        continue;
-                    }
+                    // if (!agent.name || agent.name === "None") {
+                    //     invalidCount++;
+                    //     continue;
+                    // }
                     
                     // Skip agents with object references in their names
-                    if (agent.name.includes('object at 0x')) {
-                        invalidCount++;
-                        continue;
-                    }
+                    // if (agent.name.includes('object at 0x')) {
+                    //     invalidCount++;
+                    //     continue;
+                    // }
                     
                     // Add the agent to our filtered collection
                     agents[id] = {
@@ -354,7 +354,7 @@
                         wins: agent.wins || 0,
                         losses: agent.losses || 0,
                         average_moves: agent.average_moves || 0,
-                        average_duration: agent.average_duration || 0,
+                        // average_duration: agent.average_duration || 0,
                         elo: agent.elo || 1500
                     };
                     
@@ -509,7 +509,7 @@
                     <td>${eloDisplay}</td>
                     <td>${winRateHTML}</td>
                     <td>${movesDisplay}</td>
-                    <td>${durationDisplay || 'N/A'}</td>
+                    // <td>${durationDisplay || 'N/A'}</td>
                 `;
                 
                 leaderboardBody.appendChild(row);
