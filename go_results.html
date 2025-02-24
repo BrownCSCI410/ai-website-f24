@@ -211,6 +211,10 @@
             <div class="stat-value" id="topElo">-</div>
             <div class="stat-label">Top ELO</div>
         </div>
+        <div class="stat-card">
+            <div class="stat-value" id="avgWinRate">-</div>
+            <div class="stat-label">Average Win Rate</div>
+        </div>
     </div>
     
     <table id="leaderboardTable">
@@ -258,7 +262,7 @@
         const totalAgentsEl = document.getElementById('totalAgents');
         const avgEloEl = document.getElementById('avgElo');
         const topEloEl = document.getElementById('topElo');
-        // const avgWinRateEl = document.getElementById('avgWinRate');
+        const avgWinRateEl = document.getElementById('avgWinRate');
         
         // Sort headers
         const headers = document.querySelectorAll('th[data-sort]');
