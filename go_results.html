@@ -664,18 +664,6 @@
                     if (firstSample && typeof firstSample === 'object' && firstSample.name) {
                         // If successfully loaded results.json with valid data, use that
                         loadAgentData(agentData);
-                        
-                        // Show success message with agent count
-                        const validAgentCount = Object.keys(agents).length;
-                        const successMsg = document.createElement('div');
-                        successMsg.innerHTML = `
-                            <div style="background-color: #d4edda; color: #155724; padding: 10px; 
-                                border-radius: 4px; margin: 10px 0; text-align: center;">
-                                Successfully loaded data from results.json<br>
-                                Found ${Object.keys(agentData).length} entries, processed ${validAgentCount} valid agents
-                            </div>
-                        `;
-                        document.querySelector('.controls').prepend(successMsg);
                     } else {
                         // Data doesn't seem to be in the right format
                         console.log("Data doesn't match expected format, using embedded data");
