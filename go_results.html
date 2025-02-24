@@ -235,15 +235,8 @@
     <div id="noResults" class="no-results" style="display: none;">No agents found matching your search.</div>
     
     <footer>
-        <div style="text-align: center; margin: 20px 0; padding: 20px; background-color: #f0f8ff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <h3>Load Your Go Agent Data</h3>
-            <p>The leaderboard will automatically load <code>results.json</code> if it's in the same directory.</p>
-            <p>Alternatively, you can manually upload a JSON file:</p>
-            <input type="file" id="fileInput" accept=".json" style="display: block; margin: 15px auto;">
-            <button id="loadFileButton" style="background-color: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Load Data</button>
-        </div>
         <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #666;">
-            <p>Place this HTML file in the same directory as your results.json file for automatic loading</p>
+            <p>This leaderboard automatically loads results.json from the same directory</p>
         </div>
     </footer>
 
@@ -304,39 +297,8 @@
             loadAgentData(exampleData);
         }
         
-        // File input handlers
-        const loadFileButton = document.getElementById('loadFileButton');
-        
-        loadFileButton.addEventListener('click', () => {
-            const file = fileInput.files[0];
-            if (file) {
-                loadFileData(file);
-            } else {
-                alert('Please select a JSON file first.');
-            }
-        });
-        
-        fileInput.addEventListener('change', (event) => {
-            // Enable automatic loading when file is selected if desired
-            // loadFileData(event.target.files[0]);
-        });
-        
-        function loadFileData(file) {
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    try {
-                        const data = JSON.parse(e.target.result);
-                        loadAgentData(data);
-                        alert('Data loaded successfully! ' + Object.keys(data).length + ' agents found.');
-                    } catch (error) {
-                        alert('Error parsing the JSON file. Please make sure it has the correct format.');
-                        console.error(error);
-                    }
-                };
-                reader.readAsText(file);
-            }
-        }
+        // Remove unused file input handlers
+        // No more file upload functionality
         
         // Search input handler
         searchInput.addEventListener('input', () => {
@@ -510,8 +472,11 @@
 
         // Initialize and try to load results.json automatically
         document.addEventListener('DOMContentLoaded', () => {
+            // Define a relative path to results.json
+            const resultsPath = './results.json';
+            
             // First try to load results.json automatically
-            fetch('results.json')
+            fetch(resultsPath)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`Failed to load results.json (${response.status})`);
@@ -541,18 +506,34 @@
                 })
                 .catch(error => {
                     console.warn("Could not automatically load results.json:", error);
-                    console.log("Using example data instead");
-                    loadAgentData(exampleData);
                     
-                    // Show a message about using the file upload
-                    const infoMsg = document.createElement('div');
-                    infoMsg.innerHTML = `
-                        <div style="background-color: #fff3cd; color: #856404; padding: 10px; 
-                            border-radius: 4px; margin: 10px 0; text-align: center;">
-                            Could not find results.json. Please use the file upload below or place results.json in the same directory.
-                        </div>
-                    `;
-                    document.querySelector('.controls').prepend(infoMsg);
+                    // Try with absolute path as fallback
+                    fetch('/results.json')
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`Failed to load /results.json (${response.status})`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            loadAgentData(data);
+                            console.log("Successfully loaded /results.json with " + Object.keys(data).length + " agents");
+                        })
+                        .catch(err => {
+                            console.warn("Could not load results.json with absolute path either:", err);
+                            console.log("Using example data instead");
+                            loadAgentData(exampleData);
+                            
+                            // Show a message about missing results.json
+                            const errorMsg = document.createElement('div');
+                            errorMsg.innerHTML = `
+                                <div style="background-color: #f8d7da; color: #721c24; padding: 10px; 
+                                    border-radius: 4px; margin: 10px 0; text-align: center;">
+                                    Could not find results.json. Using example data instead.
+                                </div>
+                            `;
+                            document.querySelector('.controls').prepend(errorMsg);
+                        });
                 });
         });
     </script>
