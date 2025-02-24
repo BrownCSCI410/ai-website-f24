@@ -631,7 +631,8 @@
                 })
                 .then(data => {
                     console.log(`Successfully fetched results.json with data:`, data);
-                    
+                    const validAgentCount = Object.keys(agents).length;
+                    const successMsg = document.createElement('div');
                     // If data is empty or not what we expect, keep using embedded data
                     if (!data || Object.keys(data).length === 0) {
                         const statusMsg = document.createElement('div');
@@ -641,6 +642,7 @@
                                 Loaded results.json, but it contains no data. Using embedded data instead.
                             </div>
                         `;
+                        
                         document.querySelector('.controls').prepend(statusMsg);
                         return; // Keep using embedded data
                     }
