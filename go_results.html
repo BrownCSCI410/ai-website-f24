@@ -314,19 +314,30 @@
         function loadAgentData(data) {
             agents = data;
             
-            // Filter out invalid agents - those without moves or with missing data
+            // Filter out invalid agents and ensure all required properties exist
             for (const id in agents) {
                 const agent = agents[id];
                 
-                // Skip unnamed agents or those with placeholder names
-                if (!agent.name || agent.name === "None") {
+                // Skip agents without required properties
+                if (!agent || !agent.name || agent.name === "None" || 
+                    typeof agent.average_score === 'undefined' ||
+                    typeof agent.average_moves === 'undefined' ||
+                    typeof agent.elo === 'undefined') {
                     delete agents[id];
+                    continue;
+                }
+                
+                // Ensure average_duration exists
+                if (typeof agent.average_duration === 'undefined') {
+                    agent.average_duration = 0;
                 }
                 
                 // Convert average_score to a win rate percentage
                 if ('average_score' in agent) {
                     // Map from [-1, 1] to [0, 100]
                     agent.win_rate = (agent.average_score + 1) * 50;
+                } else {
+                    agent.win_rate = 50; // Default to 50% if missing
                 }
             }
             
@@ -336,22 +347,31 @@
         
         function updateStats() {
             const agentList = Object.values(agents);
-            const validAgents = agentList.filter(a => a.average_moves > 10); // Only count agents with actual games
+            const validAgents = agentList.filter(a => a && a.average_moves > 0);
+            
+            if (validAgents.length === 0) {
+                totalAgentsEl.textContent = "0";
+                avgEloEl.textContent = "N/A";
+                topEloEl.textContent = "N/A";
+                avgWinRateEl.textContent = "N/A";
+                return;
+            }
             
             // Count
             totalAgentsEl.textContent = validAgents.length;
             
             // Average ELO
             const avgElo = validAgents.reduce((sum, agent) => sum + agent.elo, 0) / validAgents.length;
-            avgEloEl.textContent = avgElo.toFixed(0);
+            avgEloEl.textContent = isNaN(avgElo) ? "N/A" : avgElo.toFixed(0);
             
             // Top ELO
-            const topElo = Math.max(...validAgents.map(agent => agent.elo));
-            topEloEl.textContent = topElo.toFixed(0);
+            const eloValues = validAgents.map(agent => agent.elo).filter(elo => !isNaN(elo));
+            const topElo = eloValues.length > 0 ? Math.max(...eloValues) : 0;
+            topEloEl.textContent = isNaN(topElo) ? "N/A" : topElo.toFixed(0);
             
             // Average Win Rate
             const avgWinRate = validAgents.reduce((sum, agent) => sum + agent.win_rate, 0) / validAgents.length;
-            avgWinRateEl.textContent = avgWinRate.toFixed(1) + '%';
+            avgWinRateEl.textContent = isNaN(avgWinRate) ? "N/A" : avgWinRate.toFixed(1) + '%';
         }
         
         function filterAndRenderAgents() {
@@ -364,8 +384,11 @@
             const searchTerm = searchInput.value.toLowerCase();
             
             filteredAgents = Object.values(agents).filter(agent => {
-                // Only include agents that have actually played games (more than 10 moves)
-                const hasPlayedGames = agent.average_moves > 10;
+                // Make sure agent has required properties
+                if (!agent || !agent.name) return false;
+                
+                // Only include agents that have actually played games (more than 0 moves)
+                const hasPlayedGames = agent.average_moves > 0;
                 
                 // Search by name
                 const nameMatch = agent.name.toLowerCase().includes(searchTerm);
@@ -404,23 +427,31 @@
                     row.classList.add('highlight-top');
                 }
                 
-                // Create win rate display with progress bar
+                // Create win rate display with progress bar - safely handle possible NaN/undefined values
+                const winRateValue = isNaN(agent.win_rate) ? 0 : agent.win_rate;
+                const winRateDisplay = isNaN(agent.win_rate) ? 'N/A' : agent.win_rate.toFixed(1) + '%';
+                
                 const winRateHTML = `
                     <div class="win-rate">
-                        <span class="win-rate-value">${agent.win_rate.toFixed(1)}%</span>
+                        <span class="win-rate-value">${winRateDisplay}</span>
                         <div class="progress-bar-container">
-                            <div class="progress-bar" style="width: ${agent.win_rate}%"></div>
+                            <div class="progress-bar" style="width: ${winRateValue}%"></div>
                         </div>
                     </div>
                 `;
                 
+                // Safely format other metrics
+                const eloDisplay = isNaN(agent.elo) ? 'N/A' : agent.elo.toFixed(0);
+                const movesDisplay = isNaN(agent.average_moves) ? 'N/A' : agent.average_moves.toFixed(1);
+                const durationDisplay = isNaN(agent.average_duration) ? 'N/A' : agent.average_duration.toFixed(3);
+                
                 row.innerHTML = `
                     <td class="rank">${index + 1}</td>
                     <td>${agent.name}</td>
-                    <td>${agent.elo.toFixed(0)}</td>
+                    <td>${eloDisplay}</td>
                     <td>${winRateHTML}</td>
-                    <td>${agent.average_moves.toFixed(1)}</td>
-                    <td>${agent.average_duration.toFixed(3)}</td>
+                    <td>${movesDisplay}</td>
+                    <td>${durationDisplay}</td>
                 `;
                 
                 leaderboardBody.appendChild(row);
